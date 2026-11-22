@@ -1,0 +1,27 @@
+# Tài liệu môn học (không push lên GitHub)
+TaiLieu/
+
+# Thư mục build & cache (cấm nộp theo Rubric)
+build/
+*/build/
+**/build/
+.gradle/
+node_modules/
+
+# Keystore & Cấu hình bí mật (cấm nộp theo Rubric)
+*.jks
+*.keystore
+keystore.properties
+local.properties
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+.cxx/
+.externalNativeBuild/
+captures/
+output.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
