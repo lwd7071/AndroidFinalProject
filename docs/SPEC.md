@@ -29,9 +29,9 @@ Kiến trúc Android bám sát giáo trình Session 1 → Session 7; Firebase, C
 
 | Hạng mục | Lựa chọn chuẩn | Ghi chú bắt buộc |
 |---|---|---|
-| **Ngôn ngữ Android** | **Java** (Java 17 toolchain) | Dùng `java.time.Instant`, `@NonNull`/`@Nullable`, immutable models, lambda |
-| **Android SDK** | `minSdk = 26`, `compileSdk = 36`, `targetSdk = 36` | Edge-to-Edge bật mặc định trên API 35–36 |
-| **Build System** | Gradle Kotlin DSL (`*.gradle.kts`) + `gradle/libs.versions.toml` | Bật `viewBinding = true`, `buildConfig = true`, Safe Args plugin |
+| **Ngôn ngữ Android** | **Java**; JDK 21 để chạy Gradle/biên dịch, `sourceCompatibility` và `targetCompatibility` = Java 17 | Dùng `java.time.Instant`, `@NonNull`/`@Nullable`, immutable models, lambda; không mặc định dùng API thư viện Java 21 trên Android |
+| **Android SDK** | `minSdk = 26`, `compileSdk = 36`, `targetSdk = 36` | Máy chuẩn đã cài Android SDK Platform 36 và Build Tools 36.0.0; Edge-to-Edge bật mặc định trên API 35–36 |
+| **Build System** | Android Gradle Plugin 8.13.2, Gradle Wrapper 8.13; Gradle Kotlin DSL (`*.gradle.kts`) + `gradle/libs.versions.toml` | Bật `viewBinding = true`, `buildConfig = true`, Safe Args plugin; không cố định đường dẫn JDK/SDK trong file được commit |
 | **UI & Layout** | **XML Views + View Binding**, Material Design 3 (`DayNight`) | **Cấm `findViewById`**; root phẳng bằng `ConstraintLayout`; không hard-code text/màu |
 | **Navigation** | Jetpack Navigation (`NavHostFragment`) + **Safe Args** | Chỉ truyền **ID** (`conversationId`, `userId`, `lat`, `lng`), không truyền cả object |
 | **Danh sách** | `RecyclerView` + **`ListAdapter` + `DiffUtil`** | **Cấm `notifyDataSetChanged()`**; `areItemsTheSame` so sánh ID, `areContentsTheSame` dùng `equals()` |
@@ -45,6 +45,12 @@ Kiến trúc Android bám sát giáo trình Session 1 → Session 7; Firebase, C
 | **Ảnh, Audio, Video** | **Glide** (ảnh), `PickVisualMedia`, `TakePicture` (`FileProvider`), `MediaRecorder` (`.m4a`), `MediaPlayer` / **Media3 ExoPlayer** | Giải phóng recorder/player trong `onStop()` / `finally` |
 | **Bản đồ & Vị trí** | `play-services-location` (`FusedLocationProviderClient`) + `play-services-maps` (`SupportMapFragment`) | `MAPS_API_KEY` lưu trong `local.properties` |
 | **Testing & Quality** | **JUnit 4**, **Mockito**, `InstantTaskExecutorRule`, **FakeRepository**, `room-testing`, **Espresso** (`espresso-contrib`), **StrictMode**, **LeakCanary** (debug), **Android Lint** | Không dùng `Thread.sleep()` trong test |
+
+### 2.1 Môi trường phát triển chuẩn
+
+Máy chuẩn của nhóm chạy Windows với **Oracle JDK 21.0.7** (`JAVA_HOME=C:\Program Files\Java\jdk-21`) và Android SDK tại `C:\Users\ADMIN\AppData\Local\Android\Sdk` (Platform API 36, Build Tools 36.0.0). Các thành viên dùng cùng **JDK major 21** và SDK API 36; đường dẫn cài đặt của từng người có thể khác. Cấu hình Gradle JDK trong Android Studio về JDK 21, hoặc đặt `JAVA_HOME` tương ứng khi chạy `gradlew` từ terminal. `android/local.properties` chứa `sdk.dir` theo máy mỗi người và không commit. Android Studio chưa được chốt phiên bản; chọn bản hỗ trợ AGP 8.13.
+
+JDK chạy build và mức ngôn ngữ của app là hai cấu hình riêng: dùng JDK 21, nhưng đặt `JavaVersion.VERSION_17` cho cả `sourceCompatibility` và `targetCompatibility`. Android mới công bố hỗ trợ core Java libraries đến Java 17; muốn dùng cú pháp/API Java 21 trong app phải kiểm chứng riêng trên thiết bị `minSdk = 26`. [Java trong Android build](https://developer.android.com/build/jdks), [tương thích Gradle/JDK](https://docs.gradle.org/current/userguide/compatibility.html), [tương thích AGP 8.13](https://developer.android.com/build/releases/agp-8-13-0-release-notes).
 
 ---
 

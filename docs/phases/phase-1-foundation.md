@@ -4,7 +4,7 @@ Nguồn chuẩn: `docs/SPEC.md`, chữ ký chung: `docs/CONTRACTS.md`, từng m�
 
 | Người | Gói việc chính | Bàn giao cho phase sau |
 |---|---|---|
-| TV1 | Dựng Gradle Java 17, `ChatApplication`, `AppContainer`, Room entities/DAOs, schema export, Firebase config, Rules cho users/phone_index/contacts và cấu trúc conversations/devices. Viết `ValidatorsTest` hỗ trợ TV2 và DAO test nền. | DB + repository factory hoạt động; file mẫu `local.properties.example` gồm `MESSAGE_API_BASE_URL`. |
+| TV1 | Dựng Gradle Wrapper 8.13 + AGP 8.13.2 trên JDK 21, đặt Java source/target 17 theo SPEC §2.1; tạo `ChatApplication`, `AppContainer`, Room entities/DAOs, schema export, Firebase config, Rules cho users/phone_index/contacts và cấu trúc conversations/devices. Viết `ValidatorsTest` hỗ trợ TV2 và DAO test nền. | DB + repository factory hoạt động; file mẫu `local.properties.example` gồm `MESSAGE_API_BASE_URL`. |
 | TV2 | Auth email/password, transaction `phone_index`, xử lý đăng ký dở dang, đăng xuất xóa Room/listeners, Profile/EditProfile dạng chữ, đổi mật khẩu, EN/VI, tìm và thêm liên hệ bằng SĐT. | `AuthRepository`, `UserRepository`, FakeRepository, test auth/phone. |
 | TV3 | `MainActivity`/NavHost, màn danh bạ và hồ sơ người khác qua `userId`, adapter `ListAdapter`, trạng thái Loading/Content/Stale/Error, light/dark theme theo UI contract. Nút Nhắn tin điều hướng placeholder cho Phase 2. | UI shell và layout dùng được khi xoay màn hình. |
 | TV4 | `PermissionRequester`, các style `Widget.Chat.*`, color roles, spacing/typography dùng chung theo `CONTRACTS.md` §5; kiểm tra accessibility và layout cơ sở `layout-land`/`sw600dp`. | Theme light/dark, component styles và helper Android để Phase 2–3 tái sử dụng. |

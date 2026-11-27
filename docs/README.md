@@ -2,6 +2,8 @@
 
 Thư mục này dành cho **4 thành viên** trước khi chia nhánh và trong lúc triển khai. Đây là hướng dẫn đọc tài liệu; hướng dẫn cài đặt/chạy app và khai báo sử dụng AI sẽ nằm ở `README.md` tại gốc repo khi project Android được tạo.
 
+**Môi trường build:** theo [SPEC §2.1](SPEC.md#21-môi-trường-phát-triển-chuẩn): JDK 21, Android SDK API 36, Gradle Wrapper 8.13 và AGP 8.13.2. App viết Java với source/target 17. Mỗi người tự đặt đường dẫn JDK/SDK trên máy mình; không commit `android/local.properties`.
+
 ## Đọc theo thứ tự nào?
 
 1. **[SPEC.md](SPEC.md)** — Đọc mục 1–2 để hiểu yêu cầu và stack; mục 4–9 để hiểu dữ liệu, gửi tin, đồng bộ, bảo mật; mục 10–12 để biết cách nghiệm thu và nộp bài. Đây là nguồn chuẩn cao nhất.
