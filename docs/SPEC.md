@@ -327,7 +327,7 @@ flowchart LR
 - **Đăng ký (`RegisterFragment` — Tránh lỗi `PERMISSION_DENIED` khi chưa đăng nhập):**
   1. Validate đầu vào trên client bằng `Validators` (không rỗng, email hợp lệ, SĐT Việt Nam chuẩn hóa 10 chữ số, mật khẩu `>= 6` ký tự).
   2. Gọi **`FirebaseAuth.createUserWithEmailAndPassword(email, password)` trước** để phiên đăng nhập có `request.auth != null`.
-  3. Chạy **Firestore Transaction**: kiểm tra `phone_index/{normalizedPhone}`; nếu chưa tồn tại (hoặc `uid == myUid`) thì ghi đồng thời `phone_index/{normalizedPhone}` và `users/{uid}` ngay trong cùng Transaction.
+  3. Chạy **Firestore Transaction**: đọc `phone_index/{normalizedPhone}`; nếu chưa tồn tại thì tạo index và `users/{uid}` trong cùng transaction. Nếu index đã thuộc `myUid` (tiếp tục đăng ký dở dang), **không ghi đè index** mà chỉ tạo hồ sơ còn thiếu. Index thuộc UID khác thì báo trùng SĐT.
   4. **Rollback khi trùng SĐT:** Nếu Transaction phát hiện `phone_index/{normalizedPhone}` đã thuộc về `uid` khác → ném mã lỗi `PHONE_ALREADY_EXISTS`, sau đó gọi `currentUser.delete()` rồi `FirebaseAuth.signOut()` để thu hồi tài khoản Auth vừa tạo và báo lỗi trùng SĐT lên UI.
 - **Đăng nhập (`LoginFragment` & Xử lý tài khoản dở dang):**
   - Email + Mật khẩu → `FirebaseAuth.signInWithEmailAndPassword` → Kiểm tra `users/{uid}` trên Firestore.
@@ -339,7 +339,8 @@ flowchart LR
 - **Đăng xuất:** Hủy toàn bộ Firestore `SnapshotListener`, hủy `WorkManager` pending tasks, xóa trắng dữ liệu các bảng Room (`clearAllTables()` trên `diskIO`), gọi `FirebaseAuth.signOut()` → về `LoginFragment`.
 - **Quản lý tài khoản cá nhân (`ProfileFragment` / `EditProfileFragment`):**
   - Xem ảnh đại diện, tên hiển thị, email, SĐT.
-  - Phase 1: sửa tên hiển thị; xem email và SĐT. Phase 3: chọn ảnh đại diện mới (Photo Picker → Upload Cloudinary → cập nhật `users/{uid}`).
+  - Phase 1: sửa tên hiển thị **và SĐT**; email chỉ xem. Phase 3: chọn ảnh đại diện mới (Photo Picker → Upload Cloudinary → cập nhật `users/{uid}`). UID không đổi trong mọi phase.
+  - **Lưu hồ sơ/đổi SĐT:** `updateProfile(displayName, normalizedPhone)` lưu tên và số như một thao tác. Nếu đổi số, chạy Firestore transaction: đọc hồ sơ hiện tại, index số cũ và index số mới trước khi ghi; xác nhận index cũ thuộc UID mình, từ chối nếu số mới thuộc UID khác; tạo index mới nếu chưa có, cập nhật `users/{uid}` (tên, `displayNameLower`, số, `updatedAt`), xóa index cũ trong cùng transaction. Nếu không đổi số, chỉ cập nhật tên và `updatedAt` khi có thay đổi. Chỉ báo thành công khi commit; lỗi giữ hồ sơ cũ trong Room và input để thử lại. Đồ án kiểm tra tính duy nhất của SĐT, **không xác minh quyền sở hữu bằng OTP**.
   - Đổi mật khẩu (`reauthenticate` + `updatePassword`).
   - Đổi ngôn ngữ ngay trong app (Tiếng Việt / English).
 
@@ -446,12 +447,15 @@ Mọi màn hình có tải dữ liệu đều dùng 1 lớp `UiState` bất bi�
    - Hàm dùng chung: `function isSignedIn() { return request.auth != null; }`
    - **`users/{uid}`:**
      - `allow read: if isSignedIn();`
-     - `allow create, update: if isSignedIn() && request.auth.uid == uid;`
+     - `allow create`: chỉ `request.auth.uid == uid`, `request.resource.data.uid == uid`, dữ liệu hồ sơ hợp lệ và `getAfter(phone_index/{phone})` có `uid == uid`; buộc tạo hồ sơ cùng index trong transaction (hoặc dùng index đã thuộc UID đó khi hoàn tất đăng ký dở dang).
+     - `allow update`: chỉ chủ UID; giữ nguyên `uid`, `email`, `createdAt`. Dùng `diff().affectedKeys().hasOnly(...)` cho `displayName`, `displayNameLower`, `avatarUrl`, `phone`, `updatedAt`. Nếu đổi `phone`: số mới hợp lệ, `getAfter(phone_index/{newPhone}).data.uid == uid` và `!existsAfter(phone_index/{oldPhone})`; buộc cập nhật hồ sơ cùng tạo index mới/xóa index cũ trong một transaction. Nếu không đổi `phone`, index hiện tại vẫn phải thuộc UID. Không cho client xóa hồ sơ tùy ý.
    - **`users/{uid}/devices/{deviceId}`:** Chỉ `request.auth.uid == uid` được `get/list/create/update/delete`; bắt buộc `fcmToken` là string và `updatedAt` là timestamp. Firebase Admin phía Vercel đọc token bằng quyền server, không cấp quyền cho user khác.
    - **`phone_index/{phone}` (Chặn quét danh sách SĐT toàn hệ thống):**
      - `allow get: if isSignedIn();` *(chỉ cấp `get`, **không cấp `list`** để chỉ tra cứu được từng SĐT cụ thể)*
-     - `allow create: if isSignedIn() && request.resource.data.uid == request.auth.uid;`
-     - `allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;` *(phục vụ đổi SĐT hoặc rollback)*
+     - `allow create`: chỉ chủ UID, document ID và field `phone` đều là số đã chuẩn hóa, `request.resource.data.uid == request.auth.uid` và `getAfter(users/{uid}).data.phone == phone`; không cho giữ chỗ SĐT mà không cập nhật hồ sơ.
+     - `allow update: if false`; đăng ký dở dang có index cùng UID thì giữ nguyên index, không `set` lại.
+     - `allow delete`: chỉ chủ UID khi `getAfter(users/{uid}).data.phone != phone`; chỉ xóa index cũ trong transaction đổi SĐT.
+     - Kiểm thử Rules Emulator cho tạo hồ sơ/index đồng thời, tiếp tục đăng ký dở dang, đổi SĐT hợp lệ, số đã có chủ, sửa `uid`/`email`, và các ghi riêng lẻ cố làm lệch hồ sơ với index. [Rules cho atomic operations](https://firebase.google.com/docs/firestore/security/rules-conditions), [giới hạn field](https://firebase.google.com/docs/firestore/security/rules-fields).
    - **`users/{uid}/contacts/{contactUid}`:**
      - `allow read, write: if isSignedIn() && request.auth.uid == uid;`
    - **`conversations/{convId}`:**

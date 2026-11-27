@@ -129,9 +129,9 @@ Form: label luôn hiện, lỗi nằm dưới đúng field; nút chính disabled
 
 ### 6.1 Chỉnh sửa hồ sơ — `EditProfileFragment`
 
-- **Bố cục:** avatar, field Tên hiển thị, Email/SĐT chỉ đọc nếu SPEC chưa có luồng đổi; nút “Lưu”. Phase 3 thêm hành động “Đổi ảnh đại diện”.
-- **Hành vi:** Phase 1 lưu tên; Phase 3 chọn ảnh, preview trước khi upload và chỉ cập nhật avatar URL khi upload thành công.
-- **Trạng thái:** tên rỗng báo dưới field; lỗi upload giữ tên/ảnh hiện có; lưu đang chạy khóa nút và không mất input.
+- **Bố cục:** avatar, field Tên hiển thị và SĐT có thể sửa, Email chỉ đọc; nút “Lưu”. Không hiển thị UID như một trường có thể sửa. Phase 3 thêm hành động “Đổi ảnh đại diện”.
+- **Hành vi:** Phase 1 chuẩn hóa SĐT rồi gọi `UserRepository.updateProfile(displayName, normalizedPhone)`; nếu đổi số, transaction trong SPEC §6.1 kiểm tra trùng và đổi index cùng hồ sơ. Chỉ cập nhật tên/số hiển thị sau khi server xác nhận. Phase 3 chọn ảnh, preview trước khi upload và chỉ cập nhật avatar URL khi upload thành công.
+- **Trạng thái:** tên rỗng/SĐT sai định dạng hoặc đã tồn tại báo dưới đúng field; mất mạng hoặc transaction lỗi giữ SĐT cũ và nội dung đang nhập để thử lại. Lỗi upload giữ tên/ảnh hiện có; lưu đang chạy khóa nút.
 
 ### 6.2 Đổi mật khẩu — `ChangePasswordDialog`
 

@@ -57,7 +57,7 @@ interface UserRepository {
     void findByPhone(String normalizedPhone, ResultCallback<User> callback);
     void searchByNamePrefix(String query, ResultCallback<List<User>> callback);
     void addContact(String contactUid, ResultCallback<Void> callback);
-    void updateDisplayName(String name, ResultCallback<Void> callback);
+    void updateProfile(String displayName, String normalizedPhone, ResultCallback<Void> callback); // tên + phone_index cùng transaction khi đổi số
     void updateAvatar(String mediaUrl, ResultCallback<Void> callback); // Phase 3
 }
 
