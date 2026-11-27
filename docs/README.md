@@ -14,6 +14,7 @@ Thư mục này dành cho **4 thành viên** trước khi chia nhánh và trong 
    - [Phase 2 — Chat, Outbox, Vercel, FCM](phases/phase-2-core-chat.md)
    - [Phase 3 — Media, Maps, kiểm thử, nộp bài](phases/phase-3-media-and-release.md)
 5. **[ui/](ui/)** — Sáu HTML và design system xuất từ Stitch để **tham khảo hình ảnh**. Chúng thiếu một số màn, dark mode/tablet thật và có link HTML không chạy trong cấu trúc export. Không chép HTML/Tailwind vào app Android; khi khác tài liệu chính, theo `UI_SPEC.md` và `CONTRACTS.md`.
+6. **[progress/](progress/README.md)** — Mẫu cập nhật và 4 nhật ký riêng TV1–TV4. Khi hoàn thành một gói việc hoặc bàn giao cho người khác, cập nhật file của mình cùng PR theo mẫu trước khi nhờ review.
 
 ## Mỗi thành viên bắt đầu từ đâu?
 
@@ -34,5 +35,6 @@ Thứ tự ưu tiên: **SPEC → CONTRACTS → UI_SPEC → tài liệu phase →
 
 - Đối chiếu chức năng với SPEC, interface/API với CONTRACTS, màn hình với UI_SPEC, và điều kiện nghiệm thu với phase hiện tại.
 - Chạy test/lint phù hợp gói việc; PR ghi lệnh đã chạy và kết quả. Màn UI có ảnh điện thoại light/dark, EN/VI; Inbox/Chat có thêm ảnh tablet khi làm đến Phase 2.
+- Cập nhật [progress/TV1–TV4](progress/README.md) trong cùng PR: việc đã làm, bằng chứng, kết quả kiểm thử, việc còn lại và điểm cần phối hợp. Người review đối chiếu mục này với code và checklist phase.
 - Không commit `local.properties`, Firebase Admin service account, keystore, `build/` hoặc `TaiLieu/`.
 - Có ít nhất **một thành viên khác review**. Người merge phải hiểu và giải thích được code; phần có dùng AI được khai báo trong README gốc hoặc báo cáo theo rubric.

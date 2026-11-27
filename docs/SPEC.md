@@ -66,6 +66,7 @@ d:\adrproject\
 │   ├── SPEC.md                                  # 1. Đặc tả tổng thể dự án (Master Single Source of Truth)
 │   ├── CONTRACTS.md                             # 2. Hợp đồng code chung (Repo Interfaces, UiState/ApiResult, UI & Git Rules)
 │   ├── UI_SPEC.md                               # 3. Bố cục, trạng thái, thao tác của từng màn Android
+│   ├── progress/                                # Mẫu cập nhật + nhật ký riêng của TV1–TV4
 │   ├── ui/                                      # HTML/design system Stitch chỉ để tham khảo, không là nguồn chuẩn
 │   └── phases/                                  # 4–6. Kế hoạch 3 giai đoạn (Mỗi giai đoạn chia 4 gói việc cho 4 thành viên)
 │       ├── phase-1-foundation.md                # GĐ 1: Khung App, Room DB, Auth, Hồ sơ, Danh bạ & Tìm SĐT
