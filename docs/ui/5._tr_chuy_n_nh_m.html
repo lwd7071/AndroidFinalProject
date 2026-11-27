@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="vi"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trò chuyện nhóm — Chat</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'light-primary': '#2458A5',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#D9E7FF',
+        'light-on-primary-container': '#0D2F60',
+        'light-surface': '#FAFBFF',
+        'light-on-surface': '#191C20',
+        'light-surface-variant': '#E0E4EC',
+        'light-on-surface-variant': '#424750',
+        'light-surface-container-low': '#F0F3FA',
+        'light-surface-container': '#EAEFF7',
+        'light-surface-container-high': '#E2E8F2',
+        'light-outline': '#737782',
+        'light-outline-variant': '#C3C6D3',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#410002',
+        'light-success': '#146C2E',
+        'light-on-success': '#FFFFFF',
+        'light-warning-container': '#FFEDE4',
+        'light-on-warning-container': '#4F2500',
+        'dark-primary': '#A9C7FF',
+        'dark-on-primary': '#00315F',
+        'dark-primary-container': '#17477F',
+        'dark-on-primary-container': '#D9E7FF',
+        'dark-surface': '#111318',
+        'dark-on-surface': '#E2E2E9',
+        'dark-surface-variant': '#424750',
+        'dark-on-surface-variant': '#C2C6D0',
+        'dark-surface-container-low': '#191C21',
+        'dark-surface-container': '#1E2128',
+        'dark-surface-container-high': '#282B33',
+        'dark-outline': '#8D909C',
+        'dark-outline-variant': '#434751',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-success': '#6DD58C',
+        'dark-on-success': '#003913',
+        'dark-warning-container': '#4F2500',
+        'dark-on-warning-container': '#FFDCC6',
+      },
+      borderRadius: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        '2xl': '32px',
+        'page-margin': '16px',
+      },
+      fontFamily: {
+        'title': ['"Roboto"', 'sans-serif'],
+        'body': ['"Roboto"', 'sans-serif'],
+        'label': ['"Roboto"', 'sans-serif'],
+      },
+      fontSize: {
+        'title-lg': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '500' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-enter': 'cubic-bezier(0.05, 0.7, 0.1, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 0.8, 0.15)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body">
+  <div class="min-h-[884px] w-full max-w-[390px] mx-auto bg-light-surface flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Sticky Group Chat Header -->
+    <header class="sticky top-0 z-20 bg-light-surface border-b border-light-outline-variant/40">
+      <div class="h-[32px] px-page-margin flex items-center justify-between text-light-on-surface-variant">
+        <span data-design-text-token="label-md" class="font-label text-label-md tabular-nums">18:45</span>
+        <div class="flex items-center gap-xs">
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">signal_cellular_alt</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">wifi</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">battery_full</span>
+        </div>
+      </div>
+
+      <div class="h-[60px] px-sm flex items-center justify-between gap-sm">
+        <div class="flex items-center gap-xs min-w-0">
+          <a href="../inbox/Inbox.html" aria-label="Quay lại hộp thư" class="w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container shrink-0">
+            <span class="material-symbols-outlined text-[24px]" aria-hidden="true">arrow_back</span>
+          </a>
+          <div class="w-[40px] h-[40px] rounded-full bg-light-primary-container text-light-on-primary-container flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">group</span>
+          </div>
+          <div class="flex flex-col min-w-0 pl-xs">
+            <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface truncate">Nhóm Đồ án Android</span>
+            <span data-design-text-token="body-sm" class="font-body text-body-sm text-light-on-surface-variant truncate">4 thành viên</span>
+          </div>
+        </div>
+        <button type="button" onclick="toggleGroupInfoNote()" aria-label="Thông tin nhóm" class="w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container shrink-0">
+          <span class="material-symbols-outlined text-[22px]" aria-hidden="true">info</span>
+        </button>
+      </div>
+
+      <div id="group-info-note" class="hidden px-page-margin py-sm bg-light-surface-container-low text-body-sm text-light-on-surface-variant" role="status">
+        <span data-design-text-token="body-sm">Thành viên: Minh Anh (Trưởng nhóm), Quốc Bảo, Thảo Vy, Hoàng Nam.</span>
+      </div>
+    </header>
+
+    <!-- Group Message Thread -->
+    <main class="flex-1 px-page-margin py-lg flex flex-col gap-md">
+      <div class="flex justify-center py-xs">
+        <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-md py-xs rounded-full bg-light-surface-container-low">Hôm nay</span>
+      </div>
+
+      <!-- Incoming Cluster 1: Lê Thảo Vy -->
+      <div class="flex items-end gap-sm">
+        <div class="w-[32px] h-[32px] rounded-full overflow-hidden bg-light-surface-container shrink-0">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrBR0uQtExQSZZldFq0HwIFX3vtuCPYqQZeapgEDHetOEMMSWnvOpSxgtxUZS88IQ-Z6GPc1eIULH5wgUM0QKgEy4O99b2gqNCdLYHgivuYrrCl4rSs7w-N_aGLX_2sHgKe3UNCQBncyEplL4xJ2-43xQSCjpLxMK3By_tnzpSHaQglFUI2KlM5p9Y4jw2PnTzIyCNl520IcmuYAP3-HnfS0sasttxCNLLojNAAIBJJefHA" alt="Lê Thảo Vy" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col items-start gap-xs max-w-[80%] min-w-0">
+          <span data-design-text-token="label-md" class="font-label text-label-md text-light-primary px-xs">Lê Thảo Vy</span>
+          <div class="rounded-lg bg-light-surface-variant text-light-on-surface px-lg py-md">
+            <p data-design-text-token="body-lg" class="font-body text-body-lg text-pretty">Mọi người ơi, tối nay 8h họp nhóm kiểm tra tiến độ tuần 6 nhé!</p>
+          </div>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-xs tabular-nums">17:50</span>
+        </div>
+      </div>
+
+      <!-- Incoming Cluster 2: Phạm Hoàng Nam (with File) -->
+      <div class="flex items-end gap-sm">
+        <div class="w-[32px] h-[32px] rounded-full overflow-hidden bg-light-surface-container shrink-0">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrDpFD4auuBcbbxk874HcBCS8CnYXNDRJ8GYvNxtO_dVz5kT6D-1bIYegcAZi1NAP7CHGtbzA0jZmDI_Dov0qzd66rJb7QLy2XSk4qFggZ-HuowveESrot8VTPE1LKqwAEnDwF1QmJkKcLCyPUSVrZbwl9s0ouKwTn0h6Qv_m87ZJwG71fcCQli2vJs2bRYcmAM-KnOdCXyMw4Hs5w7ErXCbKtthfHmWG0SE1krBKULxYCryKg" alt="Phạm Hoàng Nam" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col items-start gap-xs max-w-[80%] min-w-0">
+          <span data-design-text-token="label-md" class="font-label text-label-md text-light-primary px-xs">Phạm Hoàng Nam</span>
+          <div class="w-full min-w-0 rounded-lg bg-light-surface-variant text-light-on-surface px-md py-md flex items-center gap-md">
+            <div class="w-[40px] h-[40px] rounded-md bg-light-surface text-light-primary flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[22px]" aria-hidden="true">folder_zip</span>
+            </div>
+            <div class="flex flex-col min-w-0 flex-1">
+              <span data-design-text-token="title-md" class="font-title text-title-md truncate">RoomDB_Offline_Sync.zip</span>
+              <span data-design-text-token="body-sm" class="font-body text-body-sm text-light-on-surface-variant tabular-nums">3.2 MB · ZIP</span>
+            </div>
+          </div>
+          <div class="rounded-lg bg-light-surface-variant text-light-on-surface px-lg py-md">
+            <p data-design-text-token="body-lg" class="font-body text-body-lg text-pretty">Mình đẩy bản lưu bộ nhớ đệm ngoại tuyến lên rồi nha.</p>
+          </div>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-xs tabular-nums">17:54</span>
+        </div>
+      </div>
+
+      <!-- My Outgoing Message -->
+      <div class="flex flex-col items-end gap-xs">
+        <div class="max-w-[80%] rounded-lg bg-light-primary-container text-light-on-primary-container px-lg py-md">
+          <p data-design-text-token="body-lg" class="font-body text-body-lg text-pretty">Tuyệt vời! Tối nay mình sẽ demo luồng gửi tin nhắn và chia sẻ vị trí.</p>
+        </div>
+        <div class="flex items-center gap-xs px-xs text-light-on-surface-variant">
+          <span data-design-text-token="label-sm" class="font-label text-label-sm tabular-nums">18:02</span>
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">done_all</span>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm">Đã gửi</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Message Composer -->
+    <footer class="sticky bottom-0 z-20 bg-light-surface border-t border-light-outline-variant/40">
+      <div class="px-sm py-sm flex items-center gap-xs">
+        <button type="button" aria-label="Đính kèm" class="w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container shrink-0">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">add_circle</span>
+        </button>
+        <input type="text" placeholder="Nhắn tin tới nhóm..." aria-label="Nội dung tin nhắn nhóm" class="min-h-[48px] flex-1 rounded-full border-0 bg-light-surface-container-low px-lg text-body-lg text-light-on-surface placeholder:text-light-on-surface-variant focus:ring-2 focus:ring-light-primary focus:outline-none">
+        <button type="button" aria-label="Gửi tin nhắn" class="w-[48px] h-[48px] rounded-full bg-light-primary text-light-on-primary inline-flex items-center justify-center shrink-0 hover:opacity-95">
+          <span class="material-symbols-outlined text-[22px]" aria-hidden="true">send</span>
+        </button>
+      </div>
+      <div class="h-[16px] flex items-center justify-center">
+        <div class="w-[108px] h-[4px] rounded-full bg-light-on-surface/30"></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleGroupInfoNote() {
+      document.getElementById('group-info-note').classList.toggle('hidden');
+    }
+  </script>
+
+
+</body></html>

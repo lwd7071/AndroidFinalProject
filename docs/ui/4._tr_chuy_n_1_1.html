@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="vi"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trò chuyện 1-1 — Chat</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'light-primary': '#2458A5',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#D9E7FF',
+        'light-on-primary-container': '#0D2F60',
+        'light-surface': '#FAFBFF',
+        'light-on-surface': '#191C20',
+        'light-surface-variant': '#E0E4EC',
+        'light-on-surface-variant': '#424750',
+        'light-surface-container-low': '#F0F3FA',
+        'light-surface-container': '#EAEFF7',
+        'light-surface-container-high': '#E2E8F2',
+        'light-outline': '#737782',
+        'light-outline-variant': '#C3C6D3',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#410002',
+        'light-success': '#146C2E',
+        'light-on-success': '#FFFFFF',
+        'light-warning-container': '#FFEDE4',
+        'light-on-warning-container': '#4F2500',
+        'dark-primary': '#A9C7FF',
+        'dark-on-primary': '#00315F',
+        'dark-primary-container': '#17477F',
+        'dark-on-primary-container': '#D9E7FF',
+        'dark-surface': '#111318',
+        'dark-on-surface': '#E2E2E9',
+        'dark-surface-variant': '#424750',
+        'dark-on-surface-variant': '#C2C6D0',
+        'dark-surface-container-low': '#191C21',
+        'dark-surface-container': '#1E2128',
+        'dark-surface-container-high': '#282B33',
+        'dark-outline': '#8D909C',
+        'dark-outline-variant': '#434751',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-success': '#6DD58C',
+        'dark-on-success': '#003913',
+        'dark-warning-container': '#4F2500',
+        'dark-on-warning-container': '#FFDCC6',
+      },
+      borderRadius: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        '2xl': '32px',
+        'page-margin': '16px',
+      },
+      fontFamily: {
+        'title': ['"Roboto"', 'sans-serif'],
+        'body': ['"Roboto"', 'sans-serif'],
+        'label': ['"Roboto"', 'sans-serif'],
+      },
+      fontSize: {
+        'title-lg': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '500' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-enter': 'cubic-bezier(0.05, 0.7, 0.1, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 0.8, 0.15)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body">
+  <div class="min-h-[884px] w-full max-w-[390px] mx-auto bg-light-surface flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Sticky Contextual Top Bar -->
+    <header class="sticky top-0 z-20 bg-light-surface border-b border-light-outline-variant/40">
+      <!-- Android Status Bar -->
+      <div class="h-[32px] px-page-margin flex items-center justify-between text-light-on-surface-variant">
+        <span data-design-text-token="label-md" class="font-label text-label-md tabular-nums">18:45</span>
+        <div class="flex items-center gap-xs">
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">signal_cellular_alt</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">wifi</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">battery_full</span>
+        </div>
+      </div>
+
+      <!-- Chat Header -->
+      <div class="h-[60px] px-sm flex items-center justify-between gap-sm">
+        <div class="flex items-center gap-xs min-w-0">
+          <a href="../inbox/Inbox.html" aria-label="Quay lại hộp thư" class="w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container shrink-0">
+            <span class="material-symbols-outlined text-[24px]" aria-hidden="true">arrow_back</span>
+          </a>
+          <div class="w-[40px] h-[40px] rounded-full overflow-hidden bg-light-surface-container shrink-0">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrAB21yTneIWROlowQa-nzmfdoPVJeRVViaX4hzCHaA5o0xyG_0ktCmEhbUy2q6RpiHfxXbYcwlVxZ4gYu58iGUNbISctrhom0-19fj-m9sCyjFOCcwVKi_TaX2Nm0ggrd3QRins_cJjMsmmeZT7uRkmsPb2Zsp_ou3TWEuyvfbosfOems5Dsu2hRpcgbmDPg014sF-TgdEgvmhGM5hFN6vZyvxbJkXrsNPwF0uUlTXVHak--A" alt="Trần Quốc Bảo" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-col min-w-0 pl-xs">
+            <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface truncate">Trần Quốc Bảo</span>
+            <span data-design-text-token="body-sm" class="font-body text-body-sm text-light-on-surface-variant truncate">Đang hoạt động</span>
+          </div>
+        </div>
+        <div class="flex items-center shrink-0">
+          <a href="tel:0903456789" aria-label="Gọi điện thoại" class="w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">call</span>
+          </a>
+          <button type="button" aria-label="Tùy chọn khác" class="w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">more_vert</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Message Thread -->
+    <main class="flex-1 px-page-margin py-md flex flex-col gap-md">
+      <!-- Date Divider -->
+      <div class="flex justify-center py-xs">
+        <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-md py-xs rounded-full bg-light-surface-container-low">Hôm nay</span>
+      </div>
+
+      <!-- Incoming Text Message -->
+      <div class="flex flex-col items-start gap-xs">
+        <div class="max-w-[80%] rounded-lg bg-light-surface-variant text-light-on-surface px-lg py-md">
+          <p data-design-text-token="body-lg" class="font-body text-body-lg text-pretty">Chào Minh Anh, mình vừa phác thảo xong màn hình Hộp thư đến rồi nè.</p>
+        </div>
+        <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-xs tabular-nums">18:38</span>
+      </div>
+
+      <!-- Incoming Photo Message -->
+      <div class="flex flex-col items-start gap-xs">
+        <div class="max-w-[80%] rounded-lg bg-light-surface-variant text-light-on-surface p-xs overflow-hidden">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrDr01_PCXdMZBfnllnZgLJspF0-ru3A-pFSReijIeWTm2EET4W9UPubBtEZEFoxt2Aj8nOba76tS0IWupIMawOtklswtJAONksvK-BlGZLZKbB07beH6pT508fO98iEsR9famQ36n0oszNYPHAiKddkiBVJ8qLPZYY2XcmGSFL6gIVfOYmfAmmWqiK6DEDfD7ejaMoMfvy4M9oi36ITrx4BhSgeqs2xgnEfdJ78AcYN-50SiMJKmw-8YhDgwslC" alt="Ảnh phác thảo giao diện ứng dụng" class="w-full h-[144px] object-cover rounded-md">
+          <p data-design-text-token="body-lg" class="font-body text-body-lg px-sm py-sm text-pretty">Xem thử bố cục này ổn chưa nhé!</p>
+        </div>
+        <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-xs tabular-nums">18:39</span>
+      </div>
+
+      <!-- Outgoing Text Message (Sent) -->
+      <div class="flex flex-col items-end gap-xs">
+        <div class="max-w-[80%] rounded-lg bg-light-primary-container text-light-on-primary-container px-lg py-md">
+          <p data-design-text-token="body-lg" class="font-body text-body-lg text-pretty">Nhìn gọn gàng lắm Bảo ơi! Đúng chuẩn Material 3 luôn.</p>
+        </div>
+        <div class="flex items-center gap-xs px-xs text-light-on-surface-variant">
+          <span data-design-text-token="label-sm" class="font-label text-label-sm tabular-nums">18:40</span>
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">done_all</span>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm">Đã gửi</span>
+        </div>
+      </div>
+
+      <!-- Incoming Voice Clip -->
+      <div class="flex flex-col items-start gap-xs">
+        <div class="max-w-[80%] w-[248px] rounded-lg bg-light-surface-variant text-light-on-surface px-md py-sm flex items-center gap-sm">
+          <button type="button" aria-label="Phát tin nhắn thoại" class="w-[40px] h-[40px] rounded-full bg-light-primary text-light-on-primary inline-flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: &#39;FILL&#39; 1;" aria-hidden="true">play_arrow</span>
+          </button>
+          <div class="flex-1 flex items-center gap-xs h-6" aria-hidden="true">
+            <span class="w-1 h-2 rounded-full bg-light-on-surface-variant"></span>
+            <span class="w-1 h-4 rounded-full bg-light-on-surface-variant"></span>
+            <span class="w-1 h-3 rounded-full bg-light-on-surface-variant"></span>
+            <span class="w-1 h-5 rounded-full bg-light-primary"></span>
+            <span class="w-1 h-3 rounded-full bg-light-primary"></span>
+            <span class="w-1 h-4 rounded-full bg-light-on-surface-variant/50"></span>
+            <span class="w-1 h-2 rounded-full bg-light-on-surface-variant/50"></span>
+            <span class="w-1 h-3 rounded-full bg-light-on-surface-variant/50"></span>
+            <span class="w-1 h-2 rounded-full bg-light-on-surface-variant/50"></span>
+          </div>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant tabular-nums shrink-0">0:18</span>
+        </div>
+        <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-xs tabular-nums">18:41</span>
+      </div>
+
+      <!-- Outgoing File Attachment (Sending) -->
+      <div class="flex flex-col items-end gap-xs">
+        <div class="max-w-[80%] rounded-lg bg-light-primary-container text-light-on-primary-container px-md py-md flex items-center gap-md">
+          <div class="w-[40px] h-[40px] rounded-md bg-light-surface text-light-primary flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">description</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span data-design-text-token="title-md" class="font-title text-title-md truncate">De_cuong_Do_an.pdf</span>
+            <span data-design-text-token="body-sm" class="font-body text-body-sm opacity-80 tabular-nums">1.4 MB · PDF</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-xs px-xs text-light-on-surface-variant">
+          <span data-design-text-token="label-sm" class="font-label text-label-sm tabular-nums">18:43</span>
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">schedule</span>
+          <span data-design-text-token="label-sm" class="font-label text-label-sm">Đang gửi</span>
+        </div>
+      </div>
+
+      <!-- Incoming Shared Location Bubble -->
+      <div class="flex flex-col items-start gap-xs">
+        <div class="max-w-[80%] rounded-lg bg-light-surface-variant text-light-on-surface overflow-hidden">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrBpqgaD-z4-Fwaod4fBEyK0nO47aSYzP9mXFuq5Cvr12t9ztvhBDuSs3tQ80yylxv3FCvXjrkj7rQeCiyfz1EJshj_ReC9hcTkhecrEszPidUY7YqCZ2Sht9cEEO4Y9s_aCic2UqvxyNuydlynt7JZOA7cgR6XkRQs6benxW-1V9XnmQV94Q5lQLA9kyZfrTQC3SlTG_OLiMYyMuYei0sZkbIvZqBB4Tj_w3VGCqlYvSKZIboR_WcBzqriKn6A" alt="Bản đồ vị trí Thư viện Trung tâm ĐHQG" class="w-full h-[96px] object-cover">
+          <div class="px-md py-sm flex flex-col gap-xs">
+            <div class="flex items-center gap-xs">
+              <span class="material-symbols-outlined text-[18px] text-light-primary" aria-hidden="true">location_on</span>
+              <span data-design-text-token="title-md" class="font-title text-title-md truncate">Thư viện Trung tâm ĐHQG</span>
+            </div>
+            <span data-design-text-token="body-sm" class="font-body text-body-sm text-light-on-surface-variant">Khu phố 6, Linh Trung, Thủ Đức · Nhấn để mở bản đồ</span>
+          </div>
+        </div>
+        <span data-design-text-token="label-sm" class="font-label text-label-sm text-light-on-surface-variant px-xs tabular-nums">18:44</span>
+      </div>
+
+      <!-- Outgoing Failed Message with Retry Action -->
+      <div id="failed-msg" class="flex flex-col items-end gap-xs pb-md">
+        <div class="max-w-[80%] rounded-lg bg-light-primary-container text-light-on-primary-container px-lg py-md border border-light-error">
+          <p data-design-text-token="body-lg" class="font-body text-body-lg text-pretty">Ok Bảo, 15 phút nữa mình có mặt ở thư viện nhé!</p>
+        </div>
+        <div id="failed-status" class="flex items-center gap-sm px-xs">
+          <span class="inline-flex items-center gap-xs text-light-error font-label text-label-sm">
+            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">error</span>
+            <span data-design-text-token="label-sm">Gửi thất bại</span>
+          </span>
+          <button type="button" onclick="retryMessage()" class="min-h-[36px] px-sm rounded-full bg-light-error-container text-light-on-error-container font-label text-label-md inline-flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">refresh</span>
+            <span data-design-text-token="label-md">Thử lại</span>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Attachment Menu Sheet (Toggleable) -->
+    <section id="attach-sheet" class="hidden mx-page-margin mb-sm p-lg rounded-lg bg-light-surface-container-low border border-light-outline-variant/60">
+      <div class="grid grid-cols-3 gap-md">
+        <button type="button" onclick="toggleAttach()" class="min-h-[64px] flex flex-col items-center justify-center gap-xs rounded-md hover:bg-light-surface-container">
+          <span class="material-symbols-outlined text-[24px] text-light-primary" aria-hidden="true">photo_camera</span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Máy ảnh</span>
+        </button>
+        <button type="button" onclick="toggleAttach()" class="min-h-[64px] flex flex-col items-center justify-center gap-xs rounded-md hover:bg-light-surface-container">
+          <span class="material-symbols-outlined text-[24px] text-light-primary" aria-hidden="true">image</span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Ảnh</span>
+        </button>
+        <button type="button" onclick="toggleAttach()" class="min-h-[64px] flex flex-col items-center justify-center gap-xs rounded-md hover:bg-light-surface-container">
+          <span class="material-symbols-outlined text-[24px] text-light-primary" aria-hidden="true">videocam</span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Video</span>
+        </button>
+        <button type="button" onclick="toggleAttach()" class="min-h-[64px] flex flex-col items-center justify-center gap-xs rounded-md hover:bg-light-surface-container">
+          <span class="material-symbols-outlined text-[24px] text-light-primary" aria-hidden="true">attach_file</span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Tệp</span>
+        </button>
+        <button type="button" onclick="toggleAttach()" class="min-h-[64px] flex flex-col items-center justify-center gap-xs rounded-md hover:bg-light-surface-container">
+          <span class="material-symbols-outlined text-[24px] text-light-primary" aria-hidden="true">mic</span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Ghi âm</span>
+        </button>
+        <button type="button" onclick="toggleAttach()" class="min-h-[64px] flex flex-col items-center justify-center gap-xs rounded-md hover:bg-light-surface-container">
+          <span class="material-symbols-outlined text-[24px] text-light-primary" aria-hidden="true">location_on</span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Vị trí</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Message Composer (normal flow at bottom of thread) -->
+    <footer class="bg-light-surface border-t border-light-outline-variant/40 shrink-0">
+      <div class="px-sm py-sm flex items-center gap-xs">
+        <button type="button" onclick="toggleAttach()" aria-label="Đính kèm tệp hoặc vị trí" class="w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container shrink-0">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">add_circle</span>
+        </button>
+        <input type="text" placeholder="Nhắn tin..." aria-label="Nội dung tin nhắn" class="min-h-[48px] flex-1 rounded-full border-0 bg-light-surface-container-low px-lg text-body-lg text-light-on-surface placeholder:text-light-on-surface-variant focus:ring-2 focus:ring-light-primary focus:outline-none">
+        <button type="button" aria-label="Gửi tin nhắn" class="w-[48px] h-[48px] rounded-full bg-light-primary text-light-on-primary inline-flex items-center justify-center shrink-0 hover:opacity-95">
+          <span class="material-symbols-outlined text-[22px]" aria-hidden="true">send</span>
+        </button>
+      </div>
+      <div class="h-[16px] flex items-center justify-center">
+        <div class="w-[108px] h-[4px] rounded-full bg-light-on-surface/30"></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleAttach() {
+      document.getElementById('attach-sheet').classList.toggle('hidden');
+    }
+    function retryMessage() {
+      const box = document.getElementById('failed-msg').querySelector('div');
+      box.classList.remove('border', 'border-light-error');
+      const status = document.getElementById('failed-status');
+      status.innerHTML = '<span class="inline-flex items-center gap-xs text-light-on-surface-variant font-label text-label-sm"><span class="material-symbols-outlined text-[14px]" aria-hidden="true">done_all</span><span data-design-text-token="label-sm">Đã gửi</span></span>';
+    }
+  </script>
+
+
+</body></html>

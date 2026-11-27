@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="vi"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập — Chat</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'light-primary': '#2458A5',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#D9E7FF',
+        'light-on-primary-container': '#0D2F60',
+        'light-surface': '#FAFBFF',
+        'light-on-surface': '#191C20',
+        'light-surface-variant': '#E0E4EC',
+        'light-on-surface-variant': '#424750',
+        'light-surface-container-low': '#F0F3FA',
+        'light-surface-container': '#EAEFF7',
+        'light-surface-container-high': '#E2E8F2',
+        'light-outline': '#737782',
+        'light-outline-variant': '#C3C6D3',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#410002',
+        'light-success': '#146C2E',
+        'light-on-success': '#FFFFFF',
+        'light-warning-container': '#FFEDE4',
+        'light-on-warning-container': '#4F2500',
+        'dark-primary': '#A9C7FF',
+        'dark-on-primary': '#00315F',
+        'dark-primary-container': '#17477F',
+        'dark-on-primary-container': '#D9E7FF',
+        'dark-surface': '#111318',
+        'dark-on-surface': '#E2E2E9',
+        'dark-surface-variant': '#424750',
+        'dark-on-surface-variant': '#C2C6D0',
+        'dark-surface-container-low': '#191C21',
+        'dark-surface-container': '#1E2128',
+        'dark-surface-container-high': '#282B33',
+        'dark-outline': '#8D909C',
+        'dark-outline-variant': '#434751',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-success': '#6DD58C',
+        'dark-on-success': '#003913',
+        'dark-warning-container': '#4F2500',
+        'dark-on-warning-container': '#FFDCC6',
+      },
+      borderRadius: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        '2xl': '32px',
+        'page-margin': '16px',
+      },
+      fontFamily: {
+        'title': ['"Roboto"', 'sans-serif'],
+        'body': ['"Roboto"', 'sans-serif'],
+        'label': ['"Roboto"', 'sans-serif'],
+      },
+      fontSize: {
+        'title-lg': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '500' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-enter': 'cubic-bezier(0.05, 0.7, 0.1, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 0.8, 0.15)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body">
+  <div class="min-h-[884px] w-full max-w-[390px] mx-auto bg-light-surface flex flex-col justify-between" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Android Status Bar -->
+    <div class="h-[32px] px-page-margin flex items-center justify-between text-light-on-surface-variant shrink-0">
+      <span data-design-text-token="label-md" class="font-label text-label-md tabular-nums">18:45</span>
+      <div class="flex items-center gap-xs">
+        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">signal_cellular_alt</span>
+        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">wifi</span>
+        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">battery_full</span>
+      </div>
+    </div>
+
+    <!-- Main Auth Content -->
+    <main class="flex-1 px-page-margin py-2xl flex flex-col justify-center gap-xl">
+      <div class="flex flex-col gap-sm">
+        <div class="w-[56px] h-[56px] rounded-lg bg-light-primary-container text-light-on-primary-container flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: &#39;FILL&#39; 1;" aria-hidden="true">chat_bubble</span>
+        </div>
+        <div class="flex items-baseline gap-sm">
+          <span data-design-text-token="title-lg" class="font-title text-title-lg text-light-primary">Chat</span>
+        </div>
+        <h1 data-design-text-token="title-lg" class="font-title text-title-lg text-light-on-surface text-balance">
+          Đăng nhập
+        </h1>
+        <p data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant text-pretty">
+          Kết nối nhanh với bạn học và nhóm đồ án, hỗ trợ xem tin nhắn ngay cả khi ngoại tuyến.
+        </p>
+      </div>
+
+      <form action="../inbox/Inbox.html" method="get" class="flex flex-col gap-lg" onsubmit="return handleSignIn(event)">
+        <!-- Email Field -->
+        <label data-component-id="input-field-icon" data-component-type="input-field" data-component-variant="with-icon" class="flex flex-col gap-xs w-full">
+          <span data-design-text-token="label-md" class="font-label text-label-md text-light-on-surface-variant">Email</span>
+          <div class="relative flex items-center">
+            <span aria-hidden="true" class="material-symbols-outlined text-[20px] text-light-on-surface-variant absolute left-lg pointer-events-none">mail</span>
+            <input id="login-email" type="email" value="minhanh.nguyen@uit.edu.vn" placeholder="ten@truong.edu.vn" inputmode="email" required class="min-h-[48px] w-full rounded-md border border-light-outline bg-light-surface pl-[48px] pr-lg py-md text-body-lg text-light-on-surface placeholder:text-light-outline focus:border-light-primary focus:ring-1 focus:ring-light-primary focus:outline-none">
+          </div>
+        </label>
+
+        <!-- Password Field with Reveal -->
+        <div class="flex flex-col gap-xs w-full">
+          <label for="login-password" data-design-text-token="label-md" class="font-label text-label-md text-light-on-surface-variant">Mật khẩu</label>
+          <div class="relative flex items-center">
+            <span aria-hidden="true" class="material-symbols-outlined text-[20px] text-light-on-surface-variant absolute left-lg pointer-events-none">lock</span>
+            <input id="login-password" type="password" value="••••••••" placeholder="Nhập mật khẩu" autocomplete="current-password" required class="min-h-[48px] w-full rounded-md border border-light-outline bg-light-surface pl-[48px] pr-[52px] py-md text-body-lg text-light-on-surface placeholder:text-light-outline focus:border-light-primary focus:ring-1 focus:ring-light-primary focus:outline-none">
+            <button type="button" id="toggle-pw-btn" onclick="togglePassword()" aria-label="Hiện mật khẩu" class="absolute right-0 w-[48px] h-[48px] rounded-full text-light-on-surface-variant inline-flex items-center justify-center hover:bg-light-surface-container">
+              <span id="toggle-pw-icon" class="material-symbols-outlined text-[20px]" aria-hidden="true">visibility</span>
+            </button>
+          </div>
+          <div class="flex justify-end">
+            <button type="button" onclick="showForgotNotice()" class="min-h-[48px] px-sm font-label text-label-lg text-light-primary inline-flex items-center">
+              <span data-design-text-token="label-lg">Quên mật khẩu?</span>
+            </button>
+          </div>
+        </div>
+
+        <p id="forgot-notice" class="hidden text-body-sm text-light-on-surface-variant bg-light-surface-container-low px-lg py-md rounded-md" role="status">
+          <span data-design-text-token="body-sm">Liên kết đặt lại mật khẩu đã được mô phỏng gửi đến email của bạn.</span>
+        </p>
+
+        <!-- Primary Sign-In Button -->
+        <button data-component-id="button-primary" data-component-type="button" data-component-variant="primary" type="submit" class="min-h-[48px] w-full px-xl rounded-full bg-light-primary text-light-on-primary font-label text-label-lg inline-flex items-center justify-center transition-colors duration-state-change ease-state-change hover:opacity-95 active:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light-primary">
+          <span data-design-text-token="label-lg">Đăng nhập</span>
+        </button>
+      </form>
+
+      <!-- Link to Registration -->
+      <div class="flex items-center justify-center gap-xs pt-sm">
+        <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant">Chưa có tài khoản?</span>
+        <a href="#register" onclick="showRegisterHint(event)" class="min-h-[48px] px-sm font-label text-label-lg text-light-primary inline-flex items-center">
+          <span data-design-text-token="label-lg">Đăng ký tài khoản</span>
+        </a>
+      </div>
+    </main>
+
+    <!-- Android Gesture Navigation Bar -->
+    <div class="h-[24px] flex items-center justify-center shrink-0">
+      <div class="w-[108px] h-[4px] rounded-full bg-light-on-surface/30"></div>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const input = document.getElementById('login-password');
+      const icon = document.getElementById('toggle-pw-icon');
+      const btn = document.getElementById('toggle-pw-btn');
+      if (input.type === 'password') {
+        input.type = 'text';
+        input.value = 'uit2026android';
+        icon.textContent = 'visibility_off';
+        btn.setAttribute('aria-label', 'Ẩn mật khẩu');
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+        btn.setAttribute('aria-label', 'Hiện mật khẩu');
+      }
+    }
+    function showForgotNotice() {
+      document.getElementById('forgot-notice').classList.remove('hidden');
+    }
+    function handleSignIn(e) {
+      e.preventDefault();
+      window.location.href = '../inbox/Inbox.html';
+      return false;
+    }
+    function showRegisterHint(e) {
+      e.preventDefault();
+      const notice = document.getElementById('forgot-notice');
+      notice.querySelector('span').textContent = 'Màn hình Đăng ký sẽ được mở rộng ở bước tiếp theo. Nhấn Đăng nhập để vào Hộp thư đến.';
+      notice.classList.remove('hidden');
+    }
+  </script>
+
+
+</body></html>

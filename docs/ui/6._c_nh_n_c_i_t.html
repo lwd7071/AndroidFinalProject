@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="vi"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cá nhân &amp; Cài đặt — Chat</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'light-primary': '#2458A5',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#D9E7FF',
+        'light-on-primary-container': '#0D2F60',
+        'light-surface': '#FAFBFF',
+        'light-on-surface': '#191C20',
+        'light-surface-variant': '#E0E4EC',
+        'light-on-surface-variant': '#424750',
+        'light-surface-container-low': '#F0F3FA',
+        'light-surface-container': '#EAEFF7',
+        'light-surface-container-high': '#E2E8F2',
+        'light-outline': '#737782',
+        'light-outline-variant': '#C3C6D3',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#410002',
+        'light-success': '#146C2E',
+        'light-on-success': '#FFFFFF',
+        'light-warning-container': '#FFEDE4',
+        'light-on-warning-container': '#4F2500',
+        'dark-primary': '#A9C7FF',
+        'dark-on-primary': '#00315F',
+        'dark-primary-container': '#17477F',
+        'dark-on-primary-container': '#D9E7FF',
+        'dark-surface': '#111318',
+        'dark-on-surface': '#E2E2E9',
+        'dark-surface-variant': '#424750',
+        'dark-on-surface-variant': '#C2C6D0',
+        'dark-surface-container-low': '#191C21',
+        'dark-surface-container': '#1E2128',
+        'dark-surface-container-high': '#282B33',
+        'dark-outline': '#8D909C',
+        'dark-outline-variant': '#434751',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-success': '#6DD58C',
+        'dark-on-success': '#003913',
+        'dark-warning-container': '#4F2500',
+        'dark-on-warning-container': '#FFDCC6',
+      },
+      borderRadius: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        '2xl': '32px',
+        'page-margin': '16px',
+      },
+      fontFamily: {
+        'title': ['"Roboto"', 'sans-serif'],
+        'body': ['"Roboto"', 'sans-serif'],
+        'label': ['"Roboto"', 'sans-serif'],
+      },
+      fontSize: {
+        'title-lg': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '500' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-enter': 'cubic-bezier(0.05, 0.7, 0.1, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 0.8, 0.15)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body">
+  <div class="min-h-[884px] w-full max-w-[390px] mx-auto bg-light-surface flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Sticky Top Bar -->
+    <header class="sticky top-0 z-20 bg-light-surface">
+      <div class="h-[32px] px-page-margin flex items-center justify-between text-light-on-surface-variant">
+        <span data-design-text-token="label-md" class="font-label text-label-md tabular-nums">18:45</span>
+        <div class="flex items-center gap-xs">
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">signal_cellular_alt</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">wifi</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">battery_full</span>
+        </div>
+      </div>
+
+      <div class="h-[56px] px-page-margin flex items-center justify-between">
+        <h1 data-design-text-token="title-lg" class="font-title text-title-lg text-light-on-surface">Cá nhân</h1>
+      </div>
+    </header>
+
+    <!-- Main Profile & Settings Content -->
+    <main class="flex-1 px-page-margin py-lg pb-[88px] flex flex-col gap-xl">
+      <!-- Identity Block -->
+      <section class="flex flex-col items-center text-center gap-sm">
+        <button type="button" data-component-id="avatar-editable" data-component-type="avatar" data-component-variant="editable" aria-label="Thay đổi ảnh đại diện" class="relative w-[88px] h-[88px] rounded-full bg-light-primary-container">
+          <img src="https://lh3.googleusercontent.com/aida/ALJJyrCr_zRXRl7LcUQH7cio4IvrkR3rr83yMiJMYepjTAmUdlQ7LxD16mGX_OpdpRlwVjNtJ7G9PNIqzdI-dgNw3A_DiihB2XrByKN6OCcPkA6bgT4lpDDLeGgSwUherEJ5QWCydGi1Y0RdK1RHnRLBLkyu30C6WPU6ZuvA9Fb1IhS08vu7hyWmDbzyZJgGVjlN_kX5CkLTc0hjyL6NF-5ySm1bvSNgRII2M3dixG4ubM1xSuCtYZG_agBW" alt="Nguyễn Minh Anh" class="w-full h-full object-cover rounded-full">
+          <span aria-hidden="true" class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-light-primary text-light-on-primary flex items-center justify-center border-2 border-light-surface">
+            <span class="material-symbols-outlined text-[16px]">photo_camera</span>
+          </span>
+        </button>
+        <div class="flex flex-col gap-xs">
+          <h2 data-design-text-token="title-lg" class="font-title text-title-lg text-light-on-surface">Nguyễn Minh Anh</h2>
+          <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant">minhanh.nguyen@uit.edu.vn</span>
+          <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant tabular-nums">0912 345 678</span>
+        </div>
+      </section>
+
+      <!-- Account Actions -->
+      <section class="flex flex-col">
+        <span data-design-text-token="label-md" class="font-label text-label-md text-light-primary px-xs pb-sm">Tài khoản</span>
+        <ul class="divide-y divide-light-outline-variant/40 bg-light-surface-container-low rounded-lg overflow-hidden">
+          <li>
+            <button type="button" onclick="showToast(&#39;Đã mở biểu mẫu chỉnh sửa hồ sơ&#39;)" class="w-full min-h-[56px] px-lg py-md flex items-center justify-between gap-md hover:bg-light-surface-container text-left">
+              <div class="flex items-center gap-lg">
+                <span class="material-symbols-outlined text-[22px] text-light-on-surface-variant" aria-hidden="true">edit</span>
+                <span data-design-text-token="body-lg" class="font-body text-body-lg text-light-on-surface">Chỉnh sửa hồ sơ</span>
+              </div>
+              <span class="material-symbols-outlined text-[20px] text-light-on-surface-variant" aria-hidden="true">chevron_right</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" onclick="showToast(&#39;Đã mở biểu mẫu đổi mật khẩu&#39;)" class="w-full min-h-[56px] px-lg py-md flex items-center justify-between gap-md hover:bg-light-surface-container text-left">
+              <div class="flex items-center gap-lg">
+                <span class="material-symbols-outlined text-[22px] text-light-on-surface-variant" aria-hidden="true">lock_reset</span>
+                <span data-design-text-token="body-lg" class="font-body text-body-lg text-light-on-surface">Đổi mật khẩu</span>
+              </div>
+              <span class="material-symbols-outlined text-[20px] text-light-on-surface-variant" aria-hidden="true">chevron_right</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Language & Theme Preferences -->
+      <section class="flex flex-col gap-md">
+        <span data-design-text-token="label-md" class="font-label text-label-md text-light-primary px-xs">Giao diện &amp; Ngôn ngữ</span>
+
+        <!-- Language Choice -->
+        <div class="p-lg rounded-lg bg-light-surface-container-low flex flex-col gap-sm">
+          <div class="flex items-center gap-sm">
+            <span class="material-symbols-outlined text-[20px] text-light-on-surface-variant" aria-hidden="true">language</span>
+            <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface">Ngôn ngữ</span>
+          </div>
+          <div class="grid grid-cols-2 gap-sm">
+            <button type="button" id="lang-vi" onclick="selectLang(&#39;vi&#39;)" class="min-h-[48px] rounded-full bg-light-primary-container text-light-on-primary-container font-label text-label-lg">
+              <span data-design-text-token="label-lg">Tiếng Việt</span>
+            </button>
+            <button type="button" id="lang-en" onclick="selectLang(&#39;en&#39;)" class="min-h-[48px] rounded-full bg-light-surface text-light-on-surface-variant border border-light-outline-variant font-label text-label-lg">
+              <span data-design-text-token="label-lg">English</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Theme Choice -->
+        <div class="p-lg rounded-lg bg-light-surface-container-low flex flex-col gap-sm">
+          <div class="flex items-center gap-sm">
+            <span class="material-symbols-outlined text-[20px] text-light-on-surface-variant" aria-hidden="true">contrast</span>
+            <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface">Chủ đề hiển thị</span>
+          </div>
+          <div class="grid grid-cols-3 gap-sm">
+            <button type="button" id="theme-light" onclick="selectTheme(&#39;light&#39;)" class="min-h-[48px] rounded-full bg-light-primary-container text-light-on-primary-container font-label text-label-md">
+              <span data-design-text-token="label-md">Sáng</span>
+            </button>
+            <button type="button" id="theme-dark" onclick="selectTheme(&#39;dark&#39;)" class="min-h-[48px] rounded-full bg-light-surface text-light-on-surface-variant border border-light-outline-variant font-label text-label-md">
+              <span data-design-text-token="label-md">Tối</span>
+            </button>
+            <button type="button" id="theme-sys" onclick="selectTheme(&#39;sys&#39;)" class="min-h-[48px] rounded-full bg-light-surface text-light-on-surface-variant border border-light-outline-variant font-label text-label-md">
+              <span data-design-text-token="label-md">Hệ thống</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feedback Toast -->
+      <p id="settings-toast" class="hidden px-lg py-md rounded-md bg-light-surface-container text-light-on-surface text-body-sm" role="status">
+        <span data-design-text-token="body-sm">Đã cập nhật cài đặt.</span>
+      </p>
+
+      <!-- Destructive Sign Out at Bottom -->
+      <div class="pt-sm">
+        <a href="../sign-in/SignIn.html" class="min-h-[48px] w-full px-lg rounded-full bg-light-error-container text-light-on-error-container font-label text-label-lg inline-flex items-center justify-center gap-sm hover:opacity-95">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">logout</span>
+          <span data-design-text-token="label-lg">Đăng xuất</span>
+        </a>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation Shell -->
+    <nav aria-label="Điều hướng chính" class="sticky bottom-0 z-20 bg-light-surface-container-low border-t border-light-outline-variant/40">
+      <div class="grid grid-cols-3 h-[68px] px-sm">
+        <a href="../inbox/Inbox.html" class="flex flex-col items-center justify-center gap-xs text-light-on-surface-variant hover:text-light-on-surface">
+          <span class="w-[64px] h-[32px] rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">chat</span>
+          </span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Tin nhắn</span>
+        </a>
+        <a href="../contacts/Contacts.html" class="flex flex-col items-center justify-center gap-xs text-light-on-surface-variant hover:text-light-on-surface">
+          <span class="w-[64px] h-[32px] rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">contacts</span>
+          </span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Danh bạ</span>
+        </a>
+        <a href="../profile-settings/ProfileSettings.html" aria-current="page" class="flex flex-col items-center justify-center gap-xs text-light-on-surface">
+          <span class="w-[64px] h-[32px] rounded-full bg-light-primary-container text-light-on-primary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: &#39;FILL&#39; 1;" aria-hidden="true">person</span>
+          </span>
+          <span data-design-text-token="label-md" class="font-label text-label-md font-medium">Cá nhân</span>
+        </a>
+      </div>
+      <div class="h-[16px] flex items-center justify-center">
+        <div class="w-[108px] h-[4px] rounded-full bg-light-on-surface/30"></div>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('settings-toast');
+      t.querySelector('span').textContent = msg;
+      t.classList.remove('hidden');
+    }
+    function selectLang(lang) {
+      const vi = document.getElementById('lang-vi');
+      const en = document.getElementById('lang-en');
+      const active = 'min-h-[48px] rounded-full bg-light-primary-container text-light-on-primary-container font-label text-label-lg';
+      const inactive = 'min-h-[48px] rounded-full bg-light-surface text-light-on-surface-variant border border-light-outline-variant font-label text-label-lg';
+      vi.className = lang === 'vi' ? active : inactive;
+      en.className = lang === 'en' ? active : inactive;
+      showToast(lang === 'vi' ? 'Đã chọn ngôn ngữ: Tiếng Việt' : 'Selected language: English');
+    }
+    function selectTheme(mode) {
+      const active = 'min-h-[48px] rounded-full bg-light-primary-container text-light-on-primary-container font-label text-label-md';
+      const inactive = 'min-h-[48px] rounded-full bg-light-surface text-light-on-surface-variant border border-light-outline-variant font-label text-label-md';
+      ['light', 'dark', 'sys'].forEach(m => {
+        document.getElementById('theme-' + m).className = (m === mode) ? active : inactive;
+      });
+      const labels = { light: 'Sáng', dark: 'Tối', sys: 'Theo hệ thống' };
+      showToast('Đã chọn chủ đề: ' + labels[mode]);
+    }
+  </script>
+
+
+</body></html>

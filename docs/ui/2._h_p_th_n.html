@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="vi"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hộp thư đến — Chat</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'light-primary': '#2458A5',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#D9E7FF',
+        'light-on-primary-container': '#0D2F60',
+        'light-surface': '#FAFBFF',
+        'light-on-surface': '#191C20',
+        'light-surface-variant': '#E0E4EC',
+        'light-on-surface-variant': '#424750',
+        'light-surface-container-low': '#F0F3FA',
+        'light-surface-container': '#EAEFF7',
+        'light-surface-container-high': '#E2E8F2',
+        'light-outline': '#737782',
+        'light-outline-variant': '#C3C6D3',
+        'light-error': '#BA1A1A',
+        'light-on-error': '#FFFFFF',
+        'light-error-container': '#FFDAD6',
+        'light-on-error-container': '#410002',
+        'light-success': '#146C2E',
+        'light-on-success': '#FFFFFF',
+        'light-warning-container': '#FFEDE4',
+        'light-on-warning-container': '#4F2500',
+        'dark-primary': '#A9C7FF',
+        'dark-on-primary': '#00315F',
+        'dark-primary-container': '#17477F',
+        'dark-on-primary-container': '#D9E7FF',
+        'dark-surface': '#111318',
+        'dark-on-surface': '#E2E2E9',
+        'dark-surface-variant': '#424750',
+        'dark-on-surface-variant': '#C2C6D0',
+        'dark-surface-container-low': '#191C21',
+        'dark-surface-container': '#1E2128',
+        'dark-surface-container-high': '#282B33',
+        'dark-outline': '#8D909C',
+        'dark-outline-variant': '#434751',
+        'dark-error': '#FFB4AB',
+        'dark-on-error': '#690005',
+        'dark-error-container': '#93000A',
+        'dark-on-error-container': '#FFDAD6',
+        'dark-success': '#6DD58C',
+        'dark-on-success': '#003913',
+        'dark-warning-container': '#4F2500',
+        'dark-on-warning-container': '#FFDCC6',
+      },
+      borderRadius: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        '2xl': '32px',
+        'page-margin': '16px',
+      },
+      fontFamily: {
+        'title': ['"Roboto"', 'sans-serif'],
+        'body': ['"Roboto"', 'sans-serif'],
+        'label': ['"Roboto"', 'sans-serif'],
+      },
+      fontSize: {
+        'title-lg': ['22px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '500' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0.25px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.5px', fontWeight: '500' }],
+        'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.4px', fontWeight: '400' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '220ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-enter': 'cubic-bezier(0.05, 0.7, 0.1, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 0.8, 0.15)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-light-surface text-light-on-surface font-body">
+  <div class="min-h-[884px] w-full max-w-[390px] mx-auto bg-light-surface flex flex-col" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <!-- Sticky Top Shell -->
+    <header class="sticky top-0 z-20 bg-light-surface">
+      <!-- Android Status Bar -->
+      <div class="h-[32px] px-page-margin flex items-center justify-between text-light-on-surface-variant">
+        <span data-design-text-token="label-md" class="font-label text-label-md tabular-nums">18:45</span>
+        <div class="flex items-center gap-xs">
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">signal_cellular_alt</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">wifi</span>
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">battery_full</span>
+        </div>
+      </div>
+
+      <!-- Top App Bar -->
+      <div class="h-[56px] px-page-margin flex items-center justify-between gap-md">
+        <h1 data-design-text-token="title-lg" class="font-title text-title-lg text-light-on-surface">Chat</h1>
+        <button type="button" onclick="toggleOfflineBanner()" aria-label="Mô phỏng trạng thái ngoại tuyến" class="min-h-[48px] px-md rounded-full bg-light-surface-container-low text-light-on-surface-variant inline-flex items-center gap-xs hover:bg-light-surface-container">
+          <span id="net-icon" class="material-symbols-outlined text-[18px]" aria-hidden="true">cloud_done</span>
+          <span id="net-label" data-design-text-token="label-md" class="font-label text-label-md">Trực tuyến</span>
+        </button>
+      </div>
+
+      <!-- Offline Cached Banner (hidden by default, toggleable) -->
+      <div id="offline-banner" class="hidden mx-page-margin mb-sm px-lg py-sm rounded-md bg-light-warning-container text-light-on-warning-container flex items-center gap-sm" role="status">
+        <span class="material-symbols-outlined text-[18px] shrink-0" aria-hidden="true">cloud_off</span>
+        <span data-design-text-token="body-sm" class="font-body text-body-sm">Không có kết nối mạng · Đang hiển thị tin nhắn đã lưu</span>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="px-page-margin pb-sm">
+        <label class="relative flex items-center w-full">
+          <span class="material-symbols-outlined text-[20px] text-light-on-surface-variant absolute left-lg pointer-events-none" aria-hidden="true">search</span>
+          <input id="inbox-search" type="search" oninput="filterConversations()" placeholder="Tìm kiếm cuộc trò chuyện" class="min-h-[48px] w-full rounded-full border-0 bg-light-surface-container-low pl-[48px] pr-lg text-body-lg text-light-on-surface placeholder:text-light-on-surface-variant focus:ring-2 focus:ring-light-primary focus:outline-none">
+        </label>
+      </div>
+
+      <!-- Primary Tabs: Tất cả / Chưa đọc -->
+      <div role="tablist" aria-label="Bộ lọc hộp thư" class="grid grid-cols-2 border-b border-light-outline-variant/60">
+        <button role="tab" id="tab-all" aria-selected="true" onclick="switchTab(&#39;all&#39;)" class="min-h-[48px] flex items-center justify-center border-b-2 border-light-primary text-light-primary font-label text-label-lg">
+          <span data-design-text-token="label-lg">Tất cả</span>
+        </button>
+        <button role="tab" id="tab-unread" aria-selected="false" onclick="switchTab(&#39;unread&#39;)" class="min-h-[48px] flex items-center justify-center gap-xs border-b-2 border-transparent text-light-on-surface-variant font-label text-label-lg hover:bg-light-surface-container-low">
+          <span data-design-text-token="label-lg">Chưa đọc</span>
+          <span data-design-text-token="label-md" class="px-sm py-xs rounded-full bg-light-primary-container text-light-on-primary-container font-label text-label-md tabular-nums">3</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Conversation List -->
+    <main class="flex-1 pb-[88px]">
+      <ul id="conv-list" class="divide-y divide-light-outline-variant/40">
+        <!-- Row 1: 1-to-1 Unread -->
+        <li data-unread="true" data-name="trần quốc bảo">
+          <a href="../chat-one-to-one/ChatOneToOne.html" class="min-h-[76px] px-page-margin py-md flex items-center gap-md hover:bg-light-surface-container-low active:bg-light-surface-container">
+            <div class="w-[48px] h-[48px] rounded-full overflow-hidden bg-light-surface-container shrink-0">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrAB21yTneIWROlowQa-nzmfdoPVJeRVViaX4hzCHaA5o0xyG_0ktCmEhbUy2q6RpiHfxXbYcwlVxZ4gYu58iGUNbISctrhom0-19fj-m9sCyjFOCcwVKi_TaX2Nm0ggrd3QRins_cJjMsmmeZT7uRkmsPb2Zsp_ou3TWEuyvfbosfOems5Dsu2hRpcgbmDPg014sF-TgdEgvmhGM5hFN6vZyvxbJkXrsNPwF0uUlTXVHak--A" alt="Trần Quốc Bảo" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col gap-xs">
+              <div class="flex items-baseline justify-between gap-sm">
+                <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface truncate">Trần Quốc Bảo</span>
+                <span data-design-text-token="label-lg" class="font-label text-label-lg text-light-primary shrink-0 tabular-nums">18:42</span>
+              </div>
+              <div class="flex items-center justify-between gap-sm">
+                <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface truncate">Mình gửi bản phác thảo giao diện mới rồi nhé</span>
+                <span data-component-id="badge-numeric" data-component-type="badge" data-component-variant="numeric" class="min-w-[24px] h-[24px] px-sm rounded-full bg-light-primary text-light-on-primary inline-flex items-center justify-center font-label text-label-md tabular-nums shrink-0">
+                  <span data-design-text-token="label-md">2</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- Row 2: Group Chat Unread -->
+        <li data-unread="true" data-name="nhóm đồ án android">
+          <a href="../chat-group/ChatGroup.html" class="min-h-[76px] px-page-margin py-md flex items-center gap-md hover:bg-light-surface-container-low active:bg-light-surface-container">
+            <div class="w-[48px] h-[48px] rounded-full bg-light-primary-container text-light-on-primary-container flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[24px]" aria-hidden="true">group</span>
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col gap-xs">
+              <div class="flex items-baseline justify-between gap-sm">
+                <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface truncate">Nhóm Đồ án Android</span>
+                <span data-design-text-token="label-lg" class="font-label text-label-lg text-light-primary shrink-0 tabular-nums">17:50</span>
+              </div>
+              <div class="flex items-center justify-between gap-sm">
+                <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface truncate">Thảo Vy: Tối nay 8h họp nhóm nhé mọi người</span>
+                <span data-component-id="badge-numeric" data-component-type="badge" data-component-variant="numeric" class="min-w-[24px] h-[24px] px-sm rounded-full bg-light-primary text-light-on-primary inline-flex items-center justify-center font-label text-label-md tabular-nums shrink-0">
+                  <span data-design-text-token="label-md">1</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- Row 3: 1-to-1 Read -->
+        <li data-unread="false" data-name="lê thảo vy">
+          <a href="../chat-one-to-one/ChatOneToOne.html" class="min-h-[76px] px-page-margin py-md flex items-center gap-md hover:bg-light-surface-container-low active:bg-light-surface-container">
+            <div class="w-[48px] h-[48px] rounded-full overflow-hidden bg-light-surface-container shrink-0">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrBR0uQtExQSZZldFq0HwIFX3vtuCPYqQZeapgEDHetOEMMSWnvOpSxgtxUZS88IQ-Z6GPc1eIULH5wgUM0QKgEy4O99b2gqNCdLYHgivuYrrCl4rSs7w-N_aGLX_2sHgKe3UNCQBncyEplL4xJ2-43xQSCjpLxMK3By_tnzpSHaQglFUI2KlM5p9Y4jw2PnTzIyCNl520IcmuYAP3-HnfS0sasttxCNLLojNAAIBJJefHA" alt="Lê Thảo Vy" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col gap-xs">
+              <div class="flex items-baseline justify-between gap-sm">
+                <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface truncate">Lê Thảo Vy</span>
+                <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant shrink-0 tabular-nums">15:10</span>
+              </div>
+              <div class="flex items-center gap-xs min-w-0">
+                <span class="material-symbols-outlined text-[16px] text-light-on-surface-variant shrink-0" aria-hidden="true">done_all</span>
+                <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant truncate">Bạn: Đã xem phần API đồng bộ ngoại tuyến rồi</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- Row 4: 1-to-1 Read -->
+        <li data-unread="false" data-name="phạm hoàng nam">
+          <a href="../chat-one-to-one/ChatOneToOne.html" class="min-h-[76px] px-page-margin py-md flex items-center gap-md hover:bg-light-surface-container-low active:bg-light-surface-container">
+            <div class="w-[48px] h-[48px] rounded-full overflow-hidden bg-light-surface-container shrink-0">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrDpFD4auuBcbbxk874HcBCS8CnYXNDRJ8GYvNxtO_dVz5kT6D-1bIYegcAZi1NAP7CHGtbzA0jZmDI_Dov0qzd66rJb7QLy2XSk4qFggZ-HuowveESrot8VTPE1LKqwAEnDwF1QmJkKcLCyPUSVrZbwl9s0ouKwTn0h6Qv_m87ZJwG71fcCQli2vJs2bRYcmAM-KnOdCXyMw4Hs5w7ErXCbKtthfHmWG0SE1krBKULxYCryKg" alt="Phạm Hoàng Nam" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col gap-xs">
+              <div class="flex items-baseline justify-between gap-sm">
+                <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface truncate">Phạm Hoàng Nam</span>
+                <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant shrink-0 tabular-nums">Hôm qua</span>
+              </div>
+              <div class="flex items-center gap-xs min-w-0">
+                <span class="material-symbols-outlined text-[16px] text-light-on-surface-variant shrink-0" aria-hidden="true">mic</span>
+                <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant truncate">Tin nhắn thoại (0:24)</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- Row 5: Long Vietnamese Name Test -->
+        <li data-unread="false" data-name="nguyễn thị phương thảo">
+          <a href="../chat-one-to-one/ChatOneToOne.html" class="min-h-[76px] px-page-margin py-md flex items-center gap-md hover:bg-light-surface-container-low active:bg-light-surface-container">
+            <div class="w-[48px] h-[48px] rounded-full bg-light-surface-variant text-light-on-surface-variant flex items-center justify-center shrink-0">
+              <span data-design-text-token="label-lg" class="font-label text-label-lg">PT</span>
+            </div>
+            <div class="flex-1 min-w-0 flex flex-col gap-xs">
+              <div class="flex items-baseline justify-between gap-sm">
+                <span data-design-text-token="title-md" class="font-title text-title-md text-light-on-surface truncate">Nguyễn Thị Phương Thảo</span>
+                <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant shrink-0 tabular-nums">24/11</span>
+              </div>
+              <span data-design-text-token="body-md" class="font-body text-body-md text-light-on-surface-variant truncate">Cảm ơn bạn đã chia sẻ tài liệu ôn thi nhé!</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Empty Search State -->
+      <div id="empty-search" class="hidden px-page-margin py-2xl flex flex-col items-center text-center gap-md">
+        <span class="material-symbols-outlined text-[40px] text-light-on-surface-variant" aria-hidden="true">search_off</span>
+        <p data-design-text-token="body-lg" class="font-body text-body-lg text-light-on-surface-variant">Không tìm thấy cuộc trò chuyện phù hợp</p>
+      </div>
+    </main>
+
+    <!-- Floating Action Button: Tin nhắn mới -->
+    <div class="sticky bottom-[84px] px-page-margin flex justify-end pointer-events-none z-10">
+      <a href="../contacts/Contacts.html" aria-label="Tin nhắn mới" class="pointer-events-auto min-h-[56px] px-lg rounded-lg bg-light-primary-container text-light-on-primary-container inline-flex items-center gap-sm hover:opacity-95">
+        <span class="material-symbols-outlined text-[24px]" aria-hidden="true">edit_square</span>
+        <span data-design-text-token="label-lg" class="font-label text-label-lg">Tin nhắn mới</span>
+      </a>
+    </div>
+
+    <!-- Bottom Navigation Shell -->
+    <nav aria-label="Điều hướng chính" class="sticky bottom-0 z-20 bg-light-surface-container-low border-t border-light-outline-variant/40">
+      <div class="grid grid-cols-3 h-[68px] px-sm">
+        <a href="../inbox/Inbox.html" aria-current="page" class="flex flex-col items-center justify-center gap-xs text-light-on-surface">
+          <span class="w-[64px] h-[32px] rounded-full bg-light-primary-container text-light-on-primary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: &#39;FILL&#39; 1;" aria-hidden="true">chat</span>
+          </span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Tin nhắn</span>
+        </a>
+        <a href="../contacts/Contacts.html" class="flex flex-col items-center justify-center gap-xs text-light-on-surface-variant hover:text-light-on-surface">
+          <span class="w-[64px] h-[32px] rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">contacts</span>
+          </span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Danh bạ</span>
+        </a>
+        <a href="../profile-settings/ProfileSettings.html" class="flex flex-col items-center justify-center gap-xs text-light-on-surface-variant hover:text-light-on-surface">
+          <span class="w-[64px] h-[32px] rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">person</span>
+          </span>
+          <span data-design-text-token="label-md" class="font-label text-label-md">Cá nhân</span>
+        </a>
+      </div>
+      <!-- Android Gesture Bar -->
+      <div class="h-[16px] flex items-center justify-center">
+        <div class="w-[108px] h-[4px] rounded-full bg-light-on-surface/30"></div>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    let currentTab = 'all';
+    function switchTab(tab) {
+      currentTab = tab;
+      const allBtn = document.getElementById('tab-all');
+      const unreadBtn = document.getElementById('tab-unread');
+      if (tab === 'all') {
+        allBtn.setAttribute('aria-selected', 'true');
+        allBtn.className = 'min-h-[48px] flex items-center justify-center border-b-2 border-light-primary text-light-primary font-label text-label-lg';
+        unreadBtn.setAttribute('aria-selected', 'false');
+        unreadBtn.className = 'min-h-[48px] flex items-center justify-center gap-xs border-b-2 border-transparent text-light-on-surface-variant font-label text-label-lg hover:bg-light-surface-container-low';
+      } else {
+        unreadBtn.setAttribute('aria-selected', 'true');
+        unreadBtn.className = 'min-h-[48px] flex items-center justify-center gap-xs border-b-2 border-light-primary text-light-primary font-label text-label-lg';
+        allBtn.setAttribute('aria-selected', 'false');
+        allBtn.className = 'min-h-[48px] flex items-center justify-center border-b-2 border-transparent text-light-on-surface-variant font-label text-label-lg hover:bg-light-surface-container-low';
+      }
+      filterConversations();
+    }
+    function filterConversations() {
+      const q = document.getElementById('inbox-search').value.trim().toLowerCase();
+      const rows = document.querySelectorAll('#conv-list li');
+      let visible = 0;
+      rows.forEach(row => {
+        const isUnread = row.dataset.unread === 'true';
+        const name = row.dataset.name || '';
+        const matchesTab = currentTab === 'all' || isUnread;
+        const matchesSearch = !q || name.includes(q);
+        if (matchesTab && matchesSearch) {
+          row.classList.remove('hidden');
+          visible++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+      document.getElementById('empty-search').classList.toggle('hidden', visible > 0);
+    }
+    function toggleOfflineBanner() {
+      const banner = document.getElementById('offline-banner');
+      const icon = document.getElementById('net-icon');
+      const label = document.getElementById('net-label');
+      const isOffline = banner.classList.toggle('hidden');
+      if (!isOffline) {
+        icon.textContent = 'cloud_off';
+        label.textContent = 'Ngoại tuyến';
+      } else {
+        icon.textContent = 'cloud_done';
+        label.textContent = 'Trực tuyến';
+      }
+    }
+  </script>
+
+
+</body></html>
