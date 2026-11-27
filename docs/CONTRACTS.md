@@ -45,9 +45,12 @@ Mọi callback hoàn tất trên main thread; IO/Firestore chạy ở executor t
 interface ResultCallback<T> { void onResult(ApiResult<T> result); }
 
 interface AuthRepository {
-    LiveData<Boolean> observeSignedIn();
+    enum SessionState { CHECKING_PROFILE, SIGNED_OUT, NEEDS_PROFILE, READY }
+    LiveData<SessionState> observeSession();
     void register(String email, String password, String displayName, String phone, ResultCallback<User> callback);
     void signIn(String email, String password, ResultCallback<User> callback);
+    void completeProfile(String displayName, String phone, ResultCallback<User> callback);
+    void changePassword(String currentPassword, String newPassword, ResultCallback<Void> callback);
     void signOut(ResultCallback<Void> callback);
 }
 
@@ -82,6 +85,8 @@ interface MediaRepository {
     void upload(String localMediaPath, MessageType type, ResultCallback<String> callback); // secure_url
 }
 ```
+
+`NEEDS_PROFILE` chỉ được phát khi Firebase Auth đã có phiên và server xác nhận chưa có hồ sơ. Khi khôi phục phiên chưa biết trạng thái hồ sơ, dùng `CHECKING_PROFILE` đến khi có kết quả hoặc hồ sơ cache của cùng UID. `signIn` trả `Failure("PROFILE_REQUIRED", ...)` khi cần điều hướng sang Hoàn tất hồ sơ. `completeProfile` sử dụng UID của phiên hiện tại và chỉ phát `READY` sau khi transaction thành công và Room đã nhận hồ sơ. `User.email` chỉ lấy từ Firebase Auth cho chính tài khoản đang đăng nhập. Hồ sơ người khác và kết quả danh bạ có `email = null`.
 
 `MessageDraft` chứa `conversationId`, `type`, các field nội dung phù hợp, `localMediaPath` tùy chọn; không chứa `senderId`, `clientId` hay server time. `send()` tự sinh ID và chỉ enqueue Worker sau khi ghi Room thành công. `retry()` kiểm tra lại message trên Firestore trước khi enqueue; đã tồn tại thì cập nhật `SENT`.
 
