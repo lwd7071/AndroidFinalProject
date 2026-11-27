@@ -1,0 +1,5 @@
+# Android Studio generates sdk.dir for each machine.
+MAPS_API_KEY=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_UPLOAD_PRESET=
+MESSAGE_API_BASE_URL=
