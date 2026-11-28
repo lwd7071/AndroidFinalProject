@@ -6,6 +6,9 @@
     <string name="nav_inbox">Messages</string>
     <string name="nav_contacts">Contacts</string>
     <string name="nav_profile">Profile</string>
+    <string name="login_title">Sign in</string>
+    <string name="register_title">Register</string>
+    <string name="complete_profile_title">Complete profile</string>
     <string name="add_contact_title">Add contact</string>
     <string name="user_profile_title">Contact profile</string>
     <string name="chat_title">Chat</string>

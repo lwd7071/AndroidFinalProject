@@ -17,6 +17,15 @@
     <fragment android:id="@+id/profileFragment"
         android:name="vn.edu.lwd7071.androidfinalproject.ui.PlaceholderFragment"
         android:label="@string/nav_profile" />
+    <fragment android:id="@+id/loginFragment"
+        android:name="vn.edu.lwd7071.androidfinalproject.ui.PlaceholderFragment"
+        android:label="@string/login_title" />
+    <fragment android:id="@+id/registerFragment"
+        android:name="vn.edu.lwd7071.androidfinalproject.ui.PlaceholderFragment"
+        android:label="@string/register_title" />
+    <fragment android:id="@+id/completeProfileFragment"
+        android:name="vn.edu.lwd7071.androidfinalproject.ui.PlaceholderFragment"
+        android:label="@string/complete_profile_title" />
     <fragment android:id="@+id/addContactFragment"
         android:name="vn.edu.lwd7071.androidfinalproject.ui.PlaceholderFragment"
         android:label="@string/add_contact_title" />
