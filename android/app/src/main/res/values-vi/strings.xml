@@ -3,4 +3,16 @@
     <string name="foundation_title">Thiết lập Chat</string>
     <string name="foundation_description">Phần nền Android đã sẵn sàng. Đăng nhập và danh bạ sẽ hiển thị sau khi tích hợp.</string>
     <string name="notification_channel_messages">Tin nhắn</string>
+    <string name="nav_inbox">Tin nhắn</string>
+    <string name="nav_contacts">Danh bạ</string>
+    <string name="nav_profile">Cá nhân</string>
+    <string name="login_title">Đăng nhập</string>
+    <string name="register_title">Đăng ký</string>
+    <string name="complete_profile_title">Hoàn tất hồ sơ</string>
+    <string name="add_contact_title">Thêm liên hệ</string>
+    <string name="user_profile_title">Hồ sơ liên hệ</string>
+    <string name="chat_title">Trò chuyện</string>
+    <string name="inbox_phase_two">Các cuộc trò chuyện sẽ hiển thị ở đây trong Phase 2.</string>
+    <string name="profile_pending">Nhóm tài khoản đang xây dựng màn cá nhân.</string>
+    <string name="screen_pending">Màn hình này đang được xây dựng.</string>
 </resources>
