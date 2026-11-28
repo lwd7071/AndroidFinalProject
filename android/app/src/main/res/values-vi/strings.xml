@@ -6,6 +6,9 @@
     <string name="nav_inbox">Tin nhắn</string>
     <string name="nav_contacts">Danh bạ</string>
     <string name="nav_profile">Cá nhân</string>
+    <string name="login_title">Đăng nhập</string>
+    <string name="register_title">Đăng ký</string>
+    <string name="complete_profile_title">Hoàn tất hồ sơ</string>
     <string name="add_contact_title">Thêm liên hệ</string>
     <string name="user_profile_title">Hồ sơ liên hệ</string>
     <string name="chat_title">Trò chuyện</string>
