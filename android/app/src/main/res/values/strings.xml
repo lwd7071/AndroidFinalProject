@@ -15,4 +15,11 @@
     <string name="inbox_phase_two">Your conversations will appear here in Phase 2.</string>
     <string name="profile_pending">Profile is being built by the account team.</string>
     <string name="screen_pending">This screen is being built.</string>
+    <string name="search_contacts">Search by name or phone</string>
+    <string name="contacts_empty">No contacts yet. Add someone to get started.</string>
+    <string name="contacts_no_matches">No contacts match your search.</string>
+    <string name="contacts_offline">Offline. Showing saved contacts.</string>
+    <string name="contact_unavailable">This contact is no longer available.</string>
+    <string name="message_contact">Message</string>
+    <string name="go_back">Go back</string>
 </resources>

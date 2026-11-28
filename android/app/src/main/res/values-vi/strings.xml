@@ -15,4 +15,11 @@
     <string name="inbox_phase_two">Các cuộc trò chuyện sẽ hiển thị ở đây trong Phase 2.</string>
     <string name="profile_pending">Nhóm tài khoản đang xây dựng màn cá nhân.</string>
     <string name="screen_pending">Màn hình này đang được xây dựng.</string>
+    <string name="search_contacts">Tìm theo tên hoặc số điện thoại</string>
+    <string name="contacts_empty">Chưa có liên hệ. Hãy thêm người để bắt đầu.</string>
+    <string name="contacts_no_matches">Không tìm thấy liên hệ phù hợp.</string>
+    <string name="contacts_offline">Không có mạng. Đang hiển thị danh bạ đã lưu.</string>
+    <string name="contact_unavailable">Không thể xem liên hệ này.</string>
+    <string name="message_contact">Nhắn tin</string>
+    <string name="go_back">Quay lại</string>
 </resources>

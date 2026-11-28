@@ -14,6 +14,8 @@ import com.google.firebase.firestore.MemoryCacheSettings;
 import vn.edu.lwd7071.androidfinalproject.BuildConfig;
 import vn.edu.lwd7071.androidfinalproject.core.AppExecutors;
 import vn.edu.lwd7071.androidfinalproject.data.local.ChatDatabase;
+import vn.edu.lwd7071.androidfinalproject.data.repository.CachedUserRepository;
+import vn.edu.lwd7071.androidfinalproject.data.repository.UserRepository;
 
 public final class AppContainer {
     private static final String EMULATOR_HOST = "10.0.2.2";
@@ -22,14 +24,20 @@ public final class AppContainer {
     private final AppExecutors executors = new AppExecutors();
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
+    private final UserRepository userRepository;
 
     public AppContainer(Context context) {
         this.context = context.getApplicationContext();
         database = Room.databaseBuilder(this.context, ChatDatabase.class, "chat.db").build();
+        userRepository = new CachedUserRepository(database);
     }
 
     public ChatDatabase database() {
         return database;
+    }
+
+    public UserRepository userRepository() {
+        return userRepository;
     }
 
     public AppExecutors executors() {

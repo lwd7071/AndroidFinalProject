@@ -41,6 +41,8 @@
 
 Mọi callback hoàn tất trên main thread; IO/Firestore chạy ở executor tương ứng. `ApiResult<T>` là `Success(value)` hoặc `Failure(code, message)`; không throw lỗi mạng lên Fragment. `UiState<T>` gồm `Loading`, `Content(data)`, `Refreshing(data)`, `Stale(data, message)`, `Error(message)`; khi có cache, lỗi mạng chuyển `Stale`, không xóa danh sách.
 
+Trong giai đoạn ghép Phase 1, `AppContainer.userRepository()` đang trả `CachedUserRepository` đọc Room để TV3 dựng Danh bạ/hồ sơ. TV2 thay provider này bằng triển khai Auth/Firestore/Room; ViewModel và Fragment chỉ dùng `UserRepository` interface.
+
 ```java
 interface ResultCallback<T> { void onResult(ApiResult<T> result); }
 
