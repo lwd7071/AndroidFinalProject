@@ -4,7 +4,7 @@
 
 - **Trạng thái:** Chờ review
 - **Đã làm:** Danh bạ đọc Room, tìm theo tên/SĐT, trạng thái rỗng/offline, hồ sơ người khác qua `userId`; điểm điều hướng Thêm liên hệ và Chat tạm.
-- **Bằng chứng:** Nhánh `feat/tv3-contacts`.
+- **Bằng chứng:** PR #3 (`feat/tv3-contacts`).
 - **Kiểm thử:** `assembleDebug`, `testDebugUnitTest`, `lintDebug` qua; chưa kiểm tra UI trên emulator vì chưa có thiết bị kết nối.
 - **Còn lại / vướng mắc:** TV2 cần nối repository Firebase và luồng thêm liên hệ; TV4 bàn giao theme/component styles.
 - **Bàn giao / cần phối hợp:** Thay `CachedUserRepository` tại `AppContainer.userRepository()` khi TV2 có triển khai thật.
