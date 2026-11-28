@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function owner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function userPath(uid) {
+      return /databases/$(database)/documents/users/$(uid);
+    }
+
+    function indexPath(phone) {
+      return /databases/$(database)/documents/phone_index/$(phone);
+    }
+
+    function normalizedPhone(phone) {
+      return phone is string && phone.matches('0[0-9]{9}');
+    }
+
+    function validProfile(data, uid) {
+      return data.keys().hasOnly([
+          'uid', 'phone', 'displayName', 'displayNameLower', 'avatarUrl', 'createdAt', 'updatedAt'
+        ]) && data.uid == uid && normalizedPhone(data.phone)
+        && data.displayName is string && data.displayName.size() > 0
+        && data.displayNameLower == data.displayName.lower()
+        && (data.get('avatarUrl', null) == null || data.avatarUrl is string)
+        && data.createdAt is timestamp && data.updatedAt == request.time;
+    }
+
+    function ownsIndexAfter(uid, phone) {
+      let entry = getAfter(indexPath(phone)).data;
+      return entry.uid == uid && entry.phone == phone;
+    }
+
+    match /users/{uid} {
+      allow get, list: if signedIn();
+      allow create: if owner(uid) && validProfile(request.resource.data, uid)
+        && request.resource.data.createdAt == request.time
+        && ownsIndexAfter(uid, request.resource.data.phone);
+      allow update: if owner(uid) && validProfile(request.resource.data, uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName', 'displayNameLower', 'avatarUrl', 'phone', 'updatedAt'
+        ])
+        && ownsIndexAfter(uid, request.resource.data.phone)
+        && (request.resource.data.phone == resource.data.phone
+          || (get(indexPath(resource.data.phone)).data.uid == uid
+            && !existsAfter(indexPath(resource.data.phone))));
+
+      match /contacts/{contactUid} {
+        allow get, list, delete: if owner(uid);
+        allow create: if owner(uid) && contactUid != uid && exists(userPath(contactUid))
+          && request.resource.data.keys().hasOnly(['contactUid', 'addedAt'])
+          && request.resource.data.contactUid == contactUid
+          && request.resource.data.addedAt == request.time;
+      }
+
+      match /devices/{deviceId} {
+        allow get, list, delete: if owner(uid);
+        allow create, update: if owner(uid)
+          && request.resource.data.keys().hasOnly(['fcmToken', 'updatedAt'])
+          && request.resource.data.fcmToken is string
+          && request.resource.data.fcmToken.size() > 0
+          && request.resource.data.updatedAt == request.time;
+      }
+    }
+
+    match /phone_index/{phone} {
+      allow get: if signedIn();
+      allow create: if signedIn() && normalizedPhone(phone)
+        && request.resource.data.keys().hasOnly(['uid', 'phone', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.phone == phone
+        && request.resource.data.createdAt == request.time
+        && getAfter(userPath(request.auth.uid)).data.phone == phone;
+      allow delete: if owner(resource.data.uid)
+        && getAfter(userPath(resource.data.uid)).data.phone != phone;
+    }
+
+    match /conversations/{conversationId} {
+      allow get, list: if signedIn() && request.auth.uid in resource.data.participantIds;
+      // Conversation creation, updates and message access are introduced in Phase 2.
+    }
+  }
+}

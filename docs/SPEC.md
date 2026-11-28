@@ -208,13 +208,14 @@ flowchart LR
 | Field | Kiểu (Firestore) | Mô tả |
 |---|---|---|
 | `uid` | `String` | Trùng với `FirebaseAuth.getCurrentUser().getUid()` |
-| `email` | `String` | Email đăng nhập |
 | `phone` | `String` | SĐT đã chuẩn hóa (VD: `0901234567`, bỏ khoảng trắng, đổi `+84` -> `0`) |
 | `displayName` | `String` | Tên hiển thị |
 | `displayNameLower` | `String` | Tên viết thường để tìm kiếm prefix (`>= query` và `<= query + "\uf8ff"`) |
 | `avatarUrl` | `String?` | URL ảnh đại diện trên Cloudinary |
 | `createdAt` | `Timestamp` | `FieldValue.serverTimestamp()` (map sang `long` epoch ms ở Room) |
 | `updatedAt` | `Timestamp` | `FieldValue.serverTimestamp()` (map sang `long` epoch ms ở Room) |
+
+Email đăng nhập chỉ lấy từ Firebase Auth của phiên hiện tại. Hồ sơ Firestore và kết quả tra cứu người khác không chứa email.
 
 #### Collection `phone_index/{normalizedPhone}`
 
@@ -296,7 +297,7 @@ flowchart LR
 
 `@Database(entities = {UserEntity.class, ContactEntity.class, ConversationEntity.class, ConversationMemberEntity.class, MessageEntity.class}, version = 1, exportSchema = true)`
 
-1. **`users` (`UserEntity`)**: `uid` (PK), `email`, `phone` (Index), `displayName`, `avatarUrl`, `updatedAt` (`long` epoch ms).
+1. **`users` (`UserEntity`)**: `uid` (PK), `email` (nullable, chỉ lưu cho tài khoản của phiên hiện tại), `phone` (Index), `displayName`, `avatarUrl`, `updatedAt` (`long` epoch ms).
 2. **`contacts` (`ContactEntity`)**: `contactUid` (PK), `addedAt` (`long` epoch ms, JOIN với `users` để hiển thị danh bạ).
 3. **`conversations` (`ConversationEntity`)**:
    - `id` (PK), `type`, `title`, `avatarUrl`, `peerUserId` (nullable, dùng cho 1-1 để lấy SĐT gọi điện/xem hồ sơ nhanh), `lastMessageText`, `lastMessageType`, `lastMessageSenderId`, `lastMessageAt` (`long`), `myLastReadAt` (`Long` nullable), `unreadCount` (`int`, tính lại từ tin server của người khác sau `myLastReadAt`), `isRemoteCreated` (`boolean`, đánh dấu phòng đã tồn tại trên Firestore hay mới tạo nháp ở local).
@@ -332,7 +333,7 @@ flowchart LR
 - **Đăng nhập (`LoginFragment` & Xử lý tài khoản dở dang):**
   - Email + Mật khẩu → `FirebaseAuth.signInWithEmailAndPassword` → Kiểm tra `users/{uid}` trên Firestore.
   - *(Phòng thủ rớt mạng lúc rollback)*: Nếu đăng nhập Auth thành công nhưng `users/{uid}` chưa tồn tại trên Firestore → yêu cầu người dùng nhập Tên hiển thị + SĐT để chạy lại Transaction hoàn tất hồ sơ trước khi vào `ConversationListFragment`.
-  - Tải hồ sơ về Room → Chuyển sang `ConversationListFragment` (xóa back stack Auth).
+  - Tải hồ sơ về Room → Chuyển sang `ConversationListFragment` (xóa back stack Auth). Dùng `AuthRepository.observeSession()` và `completeProfile()` theo CONTRACTS §3 để điều hướng tài khoản chưa hoàn tất.
 - **Quản lý phiên đăng nhập:**
   - `FirebaseAuth` tự duy trì phiên và làm mới ID Token.
   - Đăng ký `FirebaseAuth.AuthStateListener` tập trung tại `MainActivity` / `AuthRepository`: nếu `currentUser == null` hoặc bắt lỗi `UNAUTHENTICATED` khi gọi Firestore → gọi `clearLocalSession()` và điều hướng ngay về `LoginFragment`.
@@ -340,7 +341,7 @@ flowchart LR
 - **Quản lý tài khoản cá nhân (`ProfileFragment` / `EditProfileFragment`):**
   - Xem ảnh đại diện, tên hiển thị, email, SĐT.
   - Phase 1: sửa tên hiển thị **và SĐT**; email chỉ xem. Phase 3: chọn ảnh đại diện mới (Photo Picker → Upload Cloudinary → cập nhật `users/{uid}`). UID không đổi trong mọi phase.
-  - **Lưu hồ sơ/đổi SĐT:** `updateProfile(displayName, normalizedPhone)` lưu tên và số như một thao tác. Nếu đổi số, chạy Firestore transaction: đọc hồ sơ hiện tại, index số cũ và index số mới trước khi ghi; xác nhận index cũ thuộc UID mình, từ chối nếu số mới thuộc UID khác; tạo index mới nếu chưa có, cập nhật `users/{uid}` (tên, `displayNameLower`, số, `updatedAt`), xóa index cũ trong cùng transaction. Nếu không đổi số, chỉ cập nhật tên và `updatedAt` khi có thay đổi. Chỉ báo thành công khi commit; lỗi giữ hồ sơ cũ trong Room và input để thử lại. Đồ án kiểm tra tính duy nhất của SĐT, **không xác minh quyền sở hữu bằng OTP**.
+  - **Lưu hồ sơ/đổi SĐT:** `updateProfile(displayName, normalizedPhone)` lưu tên và số như một thao tác. Nếu đổi số, chạy Firestore transaction: đọc hồ sơ hiện tại, index số cũ và index số mới trước khi ghi; xác nhận index cũ thuộc UID mình, từ chối nếu số mới thuộc UID khác; tạo index mới nếu chưa có, cập nhật `users/{uid}` (tên, `displayNameLower`, số, `updatedAt`), xóa index cũ trong cùng transaction. Nếu chỉ đổi tên, cập nhật tên, `displayNameLower` và `updatedAt`. Chỉ báo thành công khi commit; lỗi giữ hồ sơ cũ trong Room và input để thử lại. Đồ án kiểm tra tính duy nhất của SĐT, **không xác minh quyền sở hữu bằng OTP**.
   - Đổi mật khẩu (`reauthenticate` + `updatePassword`).
   - Đổi ngôn ngữ ngay trong app (Tiếng Việt / English).
 
@@ -448,7 +449,7 @@ Mọi màn hình có tải dữ liệu đều dùng 1 lớp `UiState` bất bi�
    - **`users/{uid}`:**
      - `allow read: if isSignedIn();`
      - `allow create`: chỉ `request.auth.uid == uid`, `request.resource.data.uid == uid`, dữ liệu hồ sơ hợp lệ và `getAfter(phone_index/{phone})` có `uid == uid`; buộc tạo hồ sơ cùng index trong transaction (hoặc dùng index đã thuộc UID đó khi hoàn tất đăng ký dở dang).
-     - `allow update`: chỉ chủ UID; giữ nguyên `uid`, `email`, `createdAt`. Dùng `diff().affectedKeys().hasOnly(...)` cho `displayName`, `displayNameLower`, `avatarUrl`, `phone`, `updatedAt`. Nếu đổi `phone`: số mới hợp lệ, `getAfter(phone_index/{newPhone}).data.uid == uid` và `!existsAfter(phone_index/{oldPhone})`; buộc cập nhật hồ sơ cùng tạo index mới/xóa index cũ trong một transaction. Nếu không đổi `phone`, index hiện tại vẫn phải thuộc UID. Không cho client xóa hồ sơ tùy ý.
+     - `allow update`: chỉ chủ UID. Giữ nguyên `uid` và `createdAt`, từ chối trường `email` và các trường ngoài schema. Dùng `diff().affectedKeys().hasOnly(...)` cho `displayName`, `displayNameLower`, `avatarUrl`, `phone`, `updatedAt`. Nếu đổi `phone`: số mới hợp lệ, `getAfter(phone_index/{newPhone}).data.uid == uid` và `!existsAfter(phone_index/{oldPhone})`; buộc cập nhật hồ sơ cùng tạo index mới/xóa index cũ trong một transaction. Nếu không đổi `phone`, index hiện tại vẫn phải thuộc UID. Không cho client xóa hồ sơ tùy ý.
    - **`users/{uid}/devices/{deviceId}`:** Chỉ `request.auth.uid == uid` được `get/list/create/update/delete`; bắt buộc `fcmToken` là string và `updatedAt` là timestamp. Firebase Admin phía Vercel đọc token bằng quyền server, không cấp quyền cho user khác.
    - **`phone_index/{phone}` (Chặn quét danh sách SĐT toàn hệ thống):**
      - `allow get: if isSignedIn();` *(chỉ cấp `get`, **không cấp `list`** để chỉ tra cứu được từng SĐT cụ thể)*
@@ -458,7 +459,7 @@ Mọi màn hình có tải dữ liệu đều dùng 1 lớp `UiState` bất bi�
      - Kiểm thử Rules Emulator cho tạo hồ sơ/index đồng thời, tiếp tục đăng ký dở dang, đổi SĐT hợp lệ, số đã có chủ, sửa `uid`/`email`, và các ghi riêng lẻ cố làm lệch hồ sơ với index. [Rules cho atomic operations](https://firebase.google.com/docs/firestore/security/rules-conditions), [giới hạn field](https://firebase.google.com/docs/firestore/security/rules-fields).
    - **`users/{uid}/contacts/{contactUid}`:**
      - `allow read, write: if isSignedIn() && request.auth.uid == uid;`
-   - **`conversations/{convId}`:**
+   - **`conversations/{convId}`:** Phase 1 chỉ có quyền đọc theo thành viên. Các quyền ghi hội thoại và đọc tin bên dưới bắt đầu ở Phase 2.
      - `allow get/list`: chỉ thành viên; query danh sách phải có `whereArrayContains("participantIds", myUid)` vì Rules không lọc kết quả hộ client.
      - `allow create`: Android chỉ tạo `GROUP`, `adminIds` ban đầu chỉ chứa người tạo, `participantIds` chứa người tạo và tối thiểu 2 người khác; `DIRECT` đầu tiên do Vercel tạo khi gửi tin.
      - `allow update`: thành viên chỉ được đổi `lastReadAt` của **chính UID mình**; admin nhóm được đổi `title`, `avatarUrl`, `participantIds`, `adminIds`, `memberNames`, `memberAvatars` với invariant `adminIds` là tập con của `participantIds`; thành viên thường được tự rời nhóm bằng cách xóa đúng UID mình khỏi `participantIds` và `adminIds`, không xóa ai khác. Mọi nhánh kiểm tra field qua `request.resource.data.diff(resource.data).affectedKeys().hasOnly(...)`; với `lastReadAt`, kiểm tra thêm diff của map con chỉ thay đổi key `request.auth.uid`. Không nhánh client nào được sửa `lastMessage*`, `type`, `id` hoặc `createdAt`.
@@ -472,7 +473,7 @@ Mọi màn hình có tải dữ liệu đều dùng 1 lớp `UiState` bất bi�
      - Commit sẵn file mẫu `android/local.properties.example` (ghi rõ `MAPS_API_KEY=`, `CLOUDINARY_CLOUD_NAME=`, `CLOUDINARY_UPLOAD_PRESET=`, `MESSAGE_API_BASE_URL=`).
      - File thật `android/local.properties` nằm trong `.gitignore` (không nộp trong `.zip`).
      - Trong `android/app/build.gradle.kts`, mọi lệnh đọc `localProperties.getProperty(...)` **bắt buộc có fallback chuỗi rỗng `?: ""`** để khi giảng viên giải nén `.zip` và chạy `./gradlew testDebugUnitTest` hoặc `./gradlew lint` thì project vẫn Sync và Pass 100% mà không cần tạo `local.properties`.
-     - File `android/app/google-services.json` được giữ trong repo để build được plugin Google Services; API key trong đó được giới hạn theo `applicationId` + chứng chỉ `SHA-1` trên Google Cloud Console.
+     - Khi nhóm đăng ký Firebase thật, dùng `android/app/google-services.json` khớp `applicationId` và cấu hình API key theo hướng dẫn Firebase. Gradle chỉ áp dụng plugin Google Services khi có file này. Bản debug có thể bật Emulator Suite bằng `-PuseFirebaseEmulators=true` để kiểm thử trước khi có cấu hình Firebase thật.
    - Release build bật `isMinifyEnabled = true`, `isShrinkResources = true` kèm quy tắc `-keep` cho DTO/Firestore models trong `proguard-rules.pro`.
 
 ---

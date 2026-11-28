@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Chat</string>
+    <string name="foundation_title">Thiết lập Chat</string>
+    <string name="foundation_description">Phần nền Android đã sẵn sàng. Đăng nhập và danh bạ sẽ hiển thị sau khi tích hợp.</string>
+    <string name="notification_channel_messages">Tin nhắn</string>
+</resources>
