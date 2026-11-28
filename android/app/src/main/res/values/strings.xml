@@ -3,4 +3,13 @@
     <string name="foundation_title">Chat setup</string>
     <string name="foundation_description">The Android foundation is ready. Sign-in and contacts will appear here after integration.</string>
     <string name="notification_channel_messages">Messages</string>
+    <string name="nav_inbox">Messages</string>
+    <string name="nav_contacts">Contacts</string>
+    <string name="nav_profile">Profile</string>
+    <string name="add_contact_title">Add contact</string>
+    <string name="user_profile_title">Contact profile</string>
+    <string name="chat_title">Chat</string>
+    <string name="inbox_phase_two">Your conversations will appear here in Phase 2.</string>
+    <string name="profile_pending">Profile is being built by the account team.</string>
+    <string name="screen_pending">This screen is being built.</string>
 </resources>
